@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 320px;
+      padding: 16px;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: #151821;
+      color: #e2e4ea;
+    }
+    h2 { font-size: 14px; margin-bottom: 12px; }
+    label { display: block; font-size: 11px; color: #7a8099; margin-bottom: 4px; margin-top: 10px; }
+    input, textarea, select {
+      width: 100%;
+      padding: 6px 8px;
+      background: #0c0e14;
+      border: 1px solid #252a3a;
+      border-radius: 6px;
+      color: #e2e4ea;
+      font-size: 12px;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: #6c8cff; }
+    textarea { resize: vertical; min-height: 60px; }
+    button {
+      margin-top: 14px;
+      width: 100%;
+      padding: 8px;
+      background: #6c8cff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    button:hover { background: #8aa3ff; }
+    .status { font-size: 11px; color: #34d399; margin-top: 8px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>📌 Save to Nexus</h2>
+
+  <label>URL</label>
+  <input type="url" id="url" placeholder="https://..." />
+
+  <label>Title</label>
+  <input type="text" id="title" placeholder="Resource title" />
+
+  <label>Snippet / Notes</label>
+  <textarea id="content" placeholder="Selected text or notes..."></textarea>
+
+  <button id="save">Save to Nexus</button>
+  <div class="status" id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nexus Bookmarklet</title>
+</head>
+<body>
+  <h1>Nexus Bookmarklet</h1>
+  <p>Drag this link to your bookmarks bar:</p>
+  <p>
+    <a href="javascript:void(window.open('http://localhost:5173/?capture=true&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)+'&text='+encodeURIComponent(window.getSelection().toString()),'nexus-capture','width=520,height=700'))">
+      📌 Save to Nexus
+    </a>
+  </p>
+  <p><em>Note: Update the URL if your Nexus instance runs on a different port.</em></p>
+</body>
+</html>

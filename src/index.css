@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nexus-bg: #0c0e14;
+  --color-nexus-surface: #151821;
+  --color-nexus-surface-hover: #1c2030;
+  --color-nexus-border: #252a3a;
+  --color-nexus-text: #e2e4ea;
+  --color-nexus-text-muted: #7a8099;
+  --color-nexus-accent: #6c8cff;
+  --color-nexus-accent-hover: #8aa3ff;
+  --color-nexus-danger: #f46c6c;
+
+  --color-type-link: #60a5fa;
+  --color-type-snippet: #f59e0b;
+  --color-type-image: #a78bfa;
+  --color-type-note: #34d399;
+  --color-type-file: #fb7185;
+
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-nexus-bg);
+    color: var(--color-nexus-text);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: var(--color-nexus-accent);
+    color: white;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-nexus-border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-nexus-text-muted); }
+}
+
+@layer components {
+  .nexus-input {
+    background-color: var(--color-nexus-surface);
+    border: 1px solid var(--color-nexus-border);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    color: var(--color-nexus-text);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+  }
+  .nexus-input:focus {
+    border-color: var(--color-nexus-accent);
+    box-shadow: 0 0 0 2px rgba(108, 140, 255, 0.15);
+  }
+  .nexus-input::placeholder { color: var(--color-nexus-text-muted); }
+
+  .nexus-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+    white-space: nowrap;
+  }
+  .nexus-btn-primary {
+    background: var(--color-nexus-accent);
+    color: white;
+  }
+  .nexus-btn-primary:hover {
+    background: var(--color-nexus-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(108, 140, 255, 0.3);
+  }
+  .nexus-btn-ghost {
+    background: transparent;
+    color: var(--color-nexus-text-muted);
+    border: 1px solid var(--color-nexus-border);
+  }
+  .nexus-btn-ghost:hover {
+    background: var(--color-nexus-surface-hover);
+    color: var(--color-nexus-text);
+  }
+  .nexus-btn-danger {
+    background: transparent;
+    color: var(--color-nexus-danger);
+    border: 1px solid transparent;
+  }
+  .nexus-btn-danger:hover {
+    background: rgba(244, 108, 108, 0.1);
+  }
+
+  .nexus-card {
+    background: var(--color-nexus-surface);
+    border: 1px solid var(--color-nexus-border);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .nexus-card:hover {
+    border-color: var(--color-nexus-accent);
+    box-shadow: 0 0 0 1px rgba(108, 140, 255, 0.1), 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .nexus-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid;
+  }
+}
