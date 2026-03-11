@@ -20,7 +20,7 @@ const TYPE_COLORS: Record<string, string> = {
 export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
   const [tags, setTags] = useState<Tag[]>([]);
   const [expanded, setExpanded] = useState(false);
-  const { removeResource, archiveResource } = useResourceStore();
+  const { removeResource, archiveResource, unarchiveResource } = useResourceStore();
 
   useEffect(() => {
     getTagsForResource(resource.id).then(setTags);
@@ -103,16 +103,29 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
           </span>
 
           <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 mt-1">
-            <button
-              onClick={(e) => { e.stopPropagation(); archiveResource(resource.id); }}
-              className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
-              style={{ color: "var(--color-nexus-text-muted)" }}
-              onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
-              onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-              title="Archive"
-            >
-              ▼
-            </button>
+            {resource.archived ? (
+              <button
+                onClick={(e) => { e.stopPropagation(); unarchiveResource(resource.id); }}
+                className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+                style={{ color: "var(--color-nexus-text-muted)" }}
+                onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
+                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+                title="Unarchive"
+              >
+                ▲
+              </button>
+            ) : (
+              <button
+                onClick={(e) => { e.stopPropagation(); archiveResource(resource.id); }}
+                className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+                style={{ color: "var(--color-nexus-text-muted)" }}
+                onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
+                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+                title="Archive"
+              >
+                ▼
+              </button>
+            )}
             <button
               onClick={(e) => { e.stopPropagation(); removeResource(resource.id); }}
               className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
