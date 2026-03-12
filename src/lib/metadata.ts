@@ -13,15 +13,27 @@ export interface UrlMetadata {
  * Extract metadata from a URL. This works for some sites via fetch,
  * but many will block CORS. Falls back to heuristics.
  */
+async function fetchHtml(url: string): Promise<string> {
+  // Try direct fetch first (works for CORS-permissive sites)
+  try {
+    const res = await fetch(url, { mode: "cors", signal: AbortSignal.timeout(5000) });
+    if (res.ok) return res.text();
+  } catch {
+    // fall through to proxy
+  }
+
+  // Fall back to CORS proxy
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+  const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+  if (!res.ok) throw new Error("proxy failed");
+  return res.text();
+}
+
 export async function extractUrlMetadata(url: string): Promise<UrlMetadata> {
   const fallback = getFallbackMetadata(url);
 
   try {
-    const response = await fetch(url, {
-      mode: "cors",
-      signal: AbortSignal.timeout(5000),
-    });
-    const html = await response.text();
+    const html = await fetchHtml(url);
     const doc = new DOMParser().parseFromString(html, "text/html");
 
     const title =
