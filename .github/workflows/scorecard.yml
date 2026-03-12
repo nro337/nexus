@@ -4,8 +4,8 @@ on:
   push:
     branches: [main]
   schedule:
-    # Run weekly on Mondays at 06:00 UTC
-    - cron: '0 6 * * 1'
+    # Run daily at 06:00 UTC
+    - cron: '0 6 * * *'
 
 permissions: read-all
 
@@ -37,7 +37,7 @@ jobs:
         with:
           name: SARIF file
           path: results.sarif
-          retention-days: 5
+          retention-days: 7
 
       - name: Upload to code-scanning
         uses: github/codeql-action/upload-sarif@v3
