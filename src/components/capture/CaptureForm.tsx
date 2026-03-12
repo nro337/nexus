@@ -21,6 +21,7 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
   const [tagIds, setTagIds] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [fetchingMeta, setFetchingMeta] = useState(false);
+  const [thumbnail, setThumbnail] = useState<string | undefined>(undefined);
 
   const addResource = useResourceStore((s) => s.addResource);
 
@@ -34,6 +35,7 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
       const meta = await extractUrlMetadata(url);
       if (!title) setTitle(meta.title);
       if (meta.description && !content) setContent(meta.description);
+      if (meta.thumbnail) setThumbnail(meta.thumbnail);
     } catch {
       // fallback — keep what user typed
     }
@@ -44,7 +46,7 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
     if (!title.trim()) return;
     setSaving(true);
     try {
-      await addResource({ title, url: url || undefined, content, type, source }, tagIds);
+      await addResource({ title, url: url || undefined, content, type, source, thumbnail }, tagIds);
       // Reset
       setUrl("");
       setTitle("");
@@ -52,6 +54,7 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
       setType("link");
       setSource("web");
       setTagIds([]);
+      setThumbnail(undefined);
       onSaved?.();
     } finally {
       setSaving(false);

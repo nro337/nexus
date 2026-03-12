@@ -20,6 +20,7 @@ const TYPE_COLORS: Record<string, string> = {
 export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
   const [tags, setTags] = useState<Tag[]>([]);
   const [expanded, setExpanded] = useState(false);
+  const [showThumbnail, setShowThumbnail] = useState(true);
   const { removeResource, archiveResource, unarchiveResource } = useResourceStore();
 
   useEffect(() => {
@@ -30,6 +31,17 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
 
   return (
     <div className="nexus-card group" onClick={() => onSelect?.(resource)}>
+      {/* Thumbnail preview */}
+      {resource.thumbnail && showThumbnail && (
+        <div className="mb-3 -mx-3 -mt-3 rounded-t overflow-hidden h-[140px]">
+          <img
+            src={resource.thumbnail}
+            alt={resource.title}
+            className="w-full h-full object-cover"
+            onError={() => setShowThumbnail(false)}
+          />
+        </div>
+      )}
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           {/* Type + Source badge row */}

@@ -6,6 +6,7 @@ export interface UrlMetadata {
   title: string;
   favicon?: string;
   description?: string;
+  thumbnail?: string;
 }
 
 /**
@@ -33,9 +34,14 @@ export async function extractUrlMetadata(url: string): Promise<UrlMetadata> {
       doc.querySelector('meta[name="description"]')?.getAttribute("content") ||
       undefined;
 
+    const thumbnail =
+      doc.querySelector('meta[property="og:image"]')?.getAttribute("content") ||
+      getYouTubeThumbnailUrl(url) ||
+      undefined;
+
     const favicon = getFaviconUrl(url);
 
-    return { title: title.trim(), favicon, description };
+    return { title: title.trim(), favicon, description, thumbnail };
   } catch {
     return fallback;
   }
@@ -53,8 +59,9 @@ function getFallbackMetadata(url: string): UrlMetadata {
 
     const title = pathname ? `${pathname} — ${hostname}` : hostname;
     const favicon = getFaviconUrl(url);
+    const thumbnail = getYouTubeThumbnailUrl(url);
 
-    return { title, favicon };
+    return { title, favicon, thumbnail };
   } catch {
     return { title: url };
   }
@@ -67,6 +74,31 @@ function getFaviconUrl(url: string): string {
   } catch {
     return "";
   }
+}
+
+/**
+ * Extract the YouTube video ID from a YouTube URL.
+ * Supports youtube.com/watch?v=... and youtu.be/... formats.
+ */
+export function getYouTubeThumbnailUrl(url: string): string | undefined {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    let videoId: string | null = null;
+
+    if (host === "youtu.be") {
+      videoId = parsed.pathname.slice(1).split("/")[0] || null;
+    } else if (host === "youtube.com" || host.endsWith(".youtube.com")) {
+      videoId = parsed.searchParams.get("v");
+    }
+
+    if (videoId) {
+      return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    }
+  } catch {
+    // ignore
+  }
+  return undefined;
 }
 
 /**
