@@ -17,10 +17,30 @@ const TYPE_COLORS: Record<string, string> = {
   file: "var(--color-type-file)",
 };
 
+function getYouTubeEmbedUrl(url?: string): string | undefined {
+  if (!url) return undefined;
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    let videoId: string | null = null;
+    if (host === "youtu.be") {
+      videoId = parsed.pathname.slice(1).split("/")[0] || null;
+    } else if (host === "youtube.com" || host.endsWith(".youtube.com")) {
+      videoId = parsed.searchParams.get("v");
+    }
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
   const [tags, setTags] = useState<Tag[]>([]);
   const [expanded, setExpanded] = useState(false);
+  const [showThumbnail, setShowThumbnail] = useState(true);
   const { removeResource, archiveResource, unarchiveResource } = useResourceStore();
+
+  const embedUrl = getYouTubeEmbedUrl(resource.url);
 
   useEffect(() => {
     getTagsForResource(resource.id).then(setTags);
@@ -30,6 +50,26 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
 
   return (
     <div className="nexus-card group" onClick={() => onSelect?.(resource)}>
+      {/* YouTube embed / thumbnail preview */}
+      {embedUrl ? (
+        <div className="mb-3 -mx-3 -mt-3 rounded-t overflow-hidden h-52.5" onClick={(e) => e.stopPropagation()}>
+          <iframe
+            src={embedUrl}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      ) : resource.thumbnail && showThumbnail ? (
+        <div className="mb-3 -mx-3 -mt-3 rounded-t overflow-hidden h-35">
+          <img
+            src={resource.thumbnail}
+            alt={resource.title}
+            className="w-full h-full object-cover"
+            onError={() => setShowThumbnail(false)}
+          />
+        </div>
+      ) : null}
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           {/* Type + Source badge row */}
