@@ -7,6 +7,7 @@ import { formatRelativeDate, RESOURCE_TYPE_LABELS, SOURCE_LABELS } from "../../l
 interface ResourceCardProps {
   resource: Resource;
   onSelect?: (resource: Resource) => void;
+  onEdit?: (resource: Resource) => void;
 }
 
 const TYPE_COLORS: Record<string, string> = {
@@ -34,7 +35,7 @@ function getYouTubeEmbedUrl(url?: string): string | undefined {
   }
 }
 
-export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
+export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) {
   const [tags, setTags] = useState<Tag[]>([]);
   const [expanded, setExpanded] = useState(false);
   const [showThumbnail, setShowThumbnail] = useState(true);
@@ -143,6 +144,16 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
           </span>
 
           <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 mt-1">
+            <button
+              onClick={(e) => { e.stopPropagation(); onEdit?.(resource); }}
+              className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+              style={{ color: "var(--color-nexus-text-muted)" }}
+              onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
+              onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+              title="Edit"
+            >
+              ✎
+            </button>
             {resource.archived ? (
               <button
                 onClick={(e) => { e.stopPropagation(); unarchiveResource(resource.id); }}
