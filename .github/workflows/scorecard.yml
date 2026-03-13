@@ -2,6 +2,8 @@ name: OpenSSF Scorecard
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'badges/**'
   schedule:
     # Run daily at 06:00 UTC
     - cron: '0 6 * * *'
@@ -12,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
-      contents: read
+      contents: write
       actions: read
       id-token: write
     steps:
@@ -23,8 +25,8 @@ jobs:
       - name: Run Scorecard analysis
         uses: ossf/scorecard-action@v2.4.3
         with:
-          results_file: results.sarif
-          results_format: sarif
+          results_file: results.json
+          results_format: json
           publish_results: false
           # SCORECARD_TOKEN must be a GitHub Personal Access Token (classic) with
           # the 'repo' scope, stored as a repository secret. The default GITHUB_TOKEN
@@ -34,6 +36,68 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: SARIF file
-          path: results.sarif
+          name: Scorecard results
+          path: results.json
           retention-days: 7
+      - name: Generate score badge
+        run: |
+          SCORE=$(jq -r '.score' results.json)
+          export SCORE
+          python3 << 'PYEOF'
+          import os
+          score_raw = os.environ.get('SCORE', 'N/A')
+          try:
+              score_float = float(score_raw)
+              value = f"{score_float:.1f}/10"
+              if score_float >= 7:
+                  color = "#4c1"
+              elif score_float >= 4:
+                  color = "#dfb317"
+              else:
+                  color = "#e05d44"
+          except ValueError:
+              value = "N/A"
+              color = "#9f9f9f"
+          label = "OpenSSF Scorecard"
+          label_w = len(label) * 7 + 10
+          value_w = len(value) * 7 + 10
+          total_w = label_w + value_w
+          label_cx = label_w // 2 * 10
+          value_cx = (label_w + value_w // 2) * 10
+          label_tl = (label_w - 10) * 10
+          value_tl = (value_w - 10) * 10
+          svg = f"""<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{total_w}" height="20" role="img" aria-label="{label}: {value}">
+            <title>{label}: {value}</title>
+            <linearGradient id="s" x2="0" y2="100%">
+              <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+              <stop offset="1" stop-opacity=".1"/>
+            </linearGradient>
+            <clipPath id="r">
+              <rect width="{total_w}" height="20" rx="3" fill="#fff"/>
+            </clipPath>
+            <g clip-path="url(#r)">
+              <rect width="{label_w}" height="20" fill="#555"/>
+              <rect x="{label_w}" width="{value_w}" height="20" fill="{color}"/>
+              <rect width="{total_w}" height="20" fill="url(#s)"/>
+            </g>
+            <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
+              <text x="{label_cx}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="{label_tl}" lengthAdjust="spacing">{label}</text>
+              <text x="{label_cx}" y="140" transform="scale(.1)" textLength="{label_tl}" lengthAdjust="spacing">{label}</text>
+              <text x="{value_cx}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="{value_tl}" lengthAdjust="spacing">{value}</text>
+              <text x="{value_cx}" y="140" transform="scale(.1)" textLength="{value_tl}" lengthAdjust="spacing">{value}</text>
+            </g>
+          </svg>"""
+          with open("badges/openssf-scorecard.svg", "w") as f:
+              f.write(svg)
+          print(f"Badge generated: {label}: {value}")
+          PYEOF
+      - name: Commit and push badge
+        env:
+          SCORECARD_TOKEN: ${{ secrets.SCORECARD_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${SCORECARD_TOKEN}@github.com/${{ github.repository }}"
+          git add badges/openssf-scorecard.svg
+          git diff --cached --quiet || git commit -m "chore: update OpenSSF Scorecard badge [skip ci]"
+          git push origin HEAD:main
