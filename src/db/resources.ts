@@ -77,7 +77,7 @@ export async function getAllResources(): Promise<Resource[]> {
 export async function getFilteredResources(
   filters: ResourceFilters
 ): Promise<Resource[]> {
-  let collection = db.resources.orderBy("updatedAt").reverse();
+  const collection = db.resources.orderBy("updatedAt").reverse();
 
   let results = await collection.toArray();
 
