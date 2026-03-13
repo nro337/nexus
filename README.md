@@ -2,9 +2,7 @@
   <img src="assets/banner.svg" alt="Nexus — Personal Knowledge Graph" width="100%"/>
 </p>
 
-<p align="center">
-  <img src="badges/openssf-scorecard.svg" alt="OpenSSF Scorecard"/>
-</p>
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nro337/nexus/badge)](https://scorecard.dev/viewer/?uri=github.com/nro337/nexus)
 
 A local-first browser application for collecting, organizing, and connecting information from across the web. Runs entirely in-browser with no backend — your data stays in IndexedDB.
 
