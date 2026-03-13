@@ -1,5 +1,7 @@
 # Nexus — Personal Knowledge Graph
 
+![OpenSSF Scorecard](badges/openssf-scorecard.svg)
+
 A local-first browser application for collecting, organizing, and connecting information from across the web. Runs entirely in-browser with no backend — your data stays in IndexedDB.
 
 ## Features
