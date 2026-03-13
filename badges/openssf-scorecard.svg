@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160" height="20" role="img" aria-label="OpenSSF Scorecard: N/A">
-  <title>OpenSSF Scorecard: N/A</title>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="181" height="20" role="img" aria-label="OpenSSF Scorecard: 3.9/10">
+  <title>OpenSSF Scorecard: 3.9/10</title>
   <linearGradient id="s" x2="0" y2="100%">
     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
   <clipPath id="r">
-    <rect width="160" height="20" rx="3" fill="#fff"/>
+    <rect width="181" height="20" rx="3" fill="#fff"/>
   </clipPath>
   <g clip-path="url(#r)">
     <rect width="129" height="20" fill="#555"/>
-    <rect x="129" width="31" height="20" fill="#9f9f9f"/>
-    <rect width="160" height="20" fill="url(#s)"/>
+    <rect x="129" width="52" height="20" fill="#e05d44"/>
+    <rect width="181" height="20" fill="url(#s)"/>
   </g>
   <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
     <text x="640" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="1190" lengthAdjust="spacing">OpenSSF Scorecard</text>
     <text x="640" y="140" transform="scale(.1)" textLength="1190" lengthAdjust="spacing">OpenSSF Scorecard</text>
-    <text x="1440" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="210" lengthAdjust="spacing">N/A</text>
-    <text x="1440" y="140" transform="scale(.1)" textLength="210" lengthAdjust="spacing">N/A</text>
+    <text x="1550" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="420" lengthAdjust="spacing">3.9/10</text>
+    <text x="1550" y="140" transform="scale(.1)" textLength="420" lengthAdjust="spacing">3.9/10</text>
   </g>
 </svg>
