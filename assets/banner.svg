@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400">
+  <defs>
+    <!-- Background -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0d1120"/>
+    </linearGradient>
+
+    <!-- NEXUS title gradient -->
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6c8cff"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+
+    <!-- Bottom accent bar -->
+    <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6c8cff" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#6c8cff" stop-opacity="0.8"/>
+      <stop offset="70%" stop-color="#a78bfa" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Hub aura -->
+    <radialGradient id="hubAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6c8cff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#6c8cff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Wide ambient glow behind entire graph -->
+    <radialGradient id="graphAmbient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6c8cff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#6c8cff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Node glow filter -->
+    <filter id="nodeGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Hub glow filter -->
+    <filter id="hubGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Dot grid pattern -->
+    <pattern id="dotGrid" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="0" cy="0" r="0.8" fill="#252a3a" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="400" fill="url(#bgGrad)"/>
+
+  <!-- Subtle dot grid overlay -->
+  <rect width="1280" height="400" fill="url(#dotGrid)" opacity="0.5"/>
+
+  <!-- Graph ambient glow (right side) -->
+  <ellipse cx="930" cy="200" rx="340" ry="240" fill="url(#graphAmbient)"/>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="395" width="1280" height="5" fill="url(#accentBar)"/>
+
+  <!-- ─── LEFT: Text Content ─── -->
+
+  <!-- Label -->
+  <text x="82" y="130"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="11" font-weight="600" letter-spacing="4"
+        fill="#7a8099">PERSONAL KNOWLEDGE GRAPH</text>
+
+  <!-- NEXUS title -->
+  <text x="74" y="244"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="112" font-weight="800" letter-spacing="-3"
+        fill="url(#titleGrad)">NEXUS</text>
+
+  <!-- Tagline -->
+  <text x="82" y="280"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="15" fill="#7a8099" letter-spacing="1">collect · organize · connect</text>
+
+  <!-- Feature badges -->
+  <!-- local-first -->
+  <rect x="82" y="312" width="97" height="26" rx="13" fill="#151821" stroke="#252a3a" stroke-width="1"/>
+  <circle cx="101" cy="325" r="3.5" fill="#6c8cff"/>
+  <text x="114" y="330"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="11" fill="#6c8cff" font-weight="500">local-first</text>
+
+  <!-- no backend -->
+  <rect x="191" y="312" width="98" height="26" rx="13" fill="#151821" stroke="#252a3a" stroke-width="1"/>
+  <circle cx="210" cy="325" r="3.5" fill="#34d399"/>
+  <text x="222" y="330"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="11" fill="#34d399" font-weight="500">no backend</text>
+
+  <!-- force graph -->
+  <rect x="301" y="312" width="98" height="26" rx="13" fill="#151821" stroke="#252a3a" stroke-width="1"/>
+  <circle cx="320" cy="325" r="3.5" fill="#a78bfa"/>
+  <text x="332" y="330"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="11" fill="#a78bfa" font-weight="500">force graph</text>
+
+  <!-- Vertical divider -->
+  <line x1="570" y1="44" x2="570" y2="356" stroke="#252a3a" stroke-width="1" opacity="0.5"/>
+
+  <!-- ─── RIGHT: Force Graph Visualization ─── -->
+  <!--
+    Hub:  (920, 200)  r=28  #6c8cff
+    N1:   (818, 118)  r=18  #60a5fa   link
+    N2:   (820, 282)  r=16  #34d399   note
+    N3:   (1032, 112) r=16  #a78bfa   image
+    N4:   (1030, 288) r=18  #f59e0b   snippet
+    N5:   (748, 200)  r=13  #fb7185   file
+    N6:   (920, 62)   r=13  #6c8cff
+    N7:   (920, 338)  r=13  #60a5fa
+    N8:   (1112, 148) r=13  #a78bfa
+    N9:   (1112, 252) r=13  #34d399
+    N10:  (1188, 200) r=10  #f59e0b
+  -->
+
+  <!-- Edges (drawn first, behind nodes) -->
+  <g stroke="#252a3a" stroke-width="1.4" opacity="0.7">
+    <!-- Hub connections -->
+    <line x1="920" y1="200" x2="818" y2="118"/>
+    <line x1="920" y1="200" x2="820" y2="282"/>
+    <line x1="920" y1="200" x2="1032" y2="112"/>
+    <line x1="920" y1="200" x2="1030" y2="288"/>
+    <line x1="920" y1="200" x2="748" y2="200"/>
+    <line x1="920" y1="200" x2="920" y2="62"/>
+    <line x1="920" y1="200" x2="920" y2="338"/>
+    <!-- Ring 1 → Ring 2 -->
+    <line x1="818" y1="118" x2="748" y2="200"/>
+    <line x1="818" y1="118" x2="920" y2="62"/>
+    <line x1="820" y1="282" x2="748" y2="200"/>
+    <line x1="820" y1="282" x2="920" y2="338"/>
+    <line x1="1032" y1="112" x2="920" y2="62"/>
+    <line x1="1032" y1="112" x2="1112" y2="148"/>
+    <line x1="1030" y1="288" x2="920" y2="338"/>
+    <line x1="1030" y1="288" x2="1112" y2="252"/>
+    <!-- Ring 2 outer -->
+    <line x1="1112" y1="148" x2="1188" y2="200"/>
+    <line x1="1112" y1="252" x2="1188" y2="200"/>
+    <!-- Cross connections -->
+    <line x1="818" y1="118" x2="1032" y2="112"/>
+    <line x1="820" y1="282" x2="1030" y2="288"/>
+  </g>
+
+  <!-- Hub aura (large soft glow) -->
+  <ellipse cx="920" cy="200" rx="90" ry="90" fill="url(#hubAura)"/>
+
+  <!-- Nodes -->
+  <!-- Hub -->
+  <circle cx="920" cy="200" r="28" fill="#6c8cff" filter="url(#hubGlow)"/>
+  <circle cx="920" cy="200" r="28" fill="#6c8cff"/>
+  <circle cx="920" cy="200" r="18" fill="#8aa3ff" opacity="0.4"/>
+  <!-- N lettermark -->
+  <text x="920" y="207" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="22" font-weight="800" fill="white" opacity="0.9">N</text>
+
+  <!-- Ring 1 nodes -->
+  <circle cx="818" cy="118" r="18" fill="#60a5fa" filter="url(#nodeGlow)"/>
+  <circle cx="818" cy="118" r="18" fill="#60a5fa"/>
+
+  <circle cx="820" cy="282" r="16" fill="#34d399" filter="url(#nodeGlow)"/>
+  <circle cx="820" cy="282" r="16" fill="#34d399"/>
+
+  <circle cx="1032" cy="112" r="16" fill="#a78bfa" filter="url(#nodeGlow)"/>
+  <circle cx="1032" cy="112" r="16" fill="#a78bfa"/>
+
+  <circle cx="1030" cy="288" r="18" fill="#f59e0b" filter="url(#nodeGlow)"/>
+  <circle cx="1030" cy="288" r="18" fill="#f59e0b"/>
+
+  <!-- Ring 2 nodes -->
+  <circle cx="748" cy="200" r="13" fill="#fb7185" filter="url(#nodeGlow)"/>
+  <circle cx="748" cy="200" r="13" fill="#fb7185"/>
+
+  <circle cx="920" cy="62" r="13" fill="#6c8cff" filter="url(#nodeGlow)"/>
+  <circle cx="920" cy="62" r="13" fill="#6c8cff"/>
+
+  <circle cx="920" cy="338" r="13" fill="#60a5fa" filter="url(#nodeGlow)"/>
+  <circle cx="920" cy="338" r="13" fill="#60a5fa"/>
+
+  <circle cx="1112" cy="148" r="13" fill="#a78bfa" filter="url(#nodeGlow)"/>
+  <circle cx="1112" cy="148" r="13" fill="#a78bfa"/>
+
+  <circle cx="1112" cy="252" r="13" fill="#34d399" filter="url(#nodeGlow)"/>
+  <circle cx="1112" cy="252" r="13" fill="#34d399"/>
+
+  <!-- Outer node -->
+  <circle cx="1188" cy="200" r="10" fill="#f59e0b" filter="url(#nodeGlow)"/>
+  <circle cx="1188" cy="200" r="10" fill="#f59e0b"/>
+
+</svg>

@@ -1,4 +1,6 @@
-# Nexus — Personal Knowledge Graph
+<p align="center">
+  <img src="assets/banner.svg" alt="Nexus — Personal Knowledge Graph" width="100%"/>
+</p>
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nro337/nexus/badge)](https://scorecard.dev/viewer/?uri=github.com/nro337/nexus)
 
