@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
-      contents: write
+      contents: read
       actions: read
       id-token: write
     steps:
@@ -33,12 +33,6 @@ jobs:
           # cannot access the GraphQL API for private repositories, causing the
           # "Resource not accessible by integration" error.
           repo_token: ${{ secrets.SCORECARD_TOKEN }}
-      - name: Upload artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: Scorecard results
-          path: results.json
-          retention-days: 7
       - name: Generate score badge
         run: |
           SCORE=$(jq -r '.score' results.json)
@@ -91,13 +85,11 @@ jobs:
               f.write(svg)
           print(f"Badge generated: {label}: {value}")
           PYEOF
-      - name: Commit and push badge
-        env:
-          SCORECARD_TOKEN: ${{ secrets.SCORECARD_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${SCORECARD_TOKEN}@github.com/${{ github.repository }}"
-          git add badges/openssf-scorecard.svg
-          git diff --cached --quiet || git commit -m "chore: update OpenSSF Scorecard badge [skip ci]"
-          git push origin HEAD:main
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Scorecard results
+          path: |
+            results.json
+            badges/openssf-scorecard.svg
+          retention-days: 7
