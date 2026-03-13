@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useResourceStore } from "../../store/useResourceStore";
 import { useSearchStore } from "../../store/useSearchStore";
 import { ResourceCard } from "./ResourceCard";
+import { EditResourceModal } from "./EditResourceModal";
 import { db } from "../../db/schema";
-import type { ResourceType, SourcePlatform } from "../../types";
+import type { Resource, ResourceType, SourcePlatform } from "../../types";
 import { RESOURCE_TYPE_LABELS, SOURCE_LABELS } from "../../lib/utils";
 
 export function ResourceList() {
   const { resources, filters, setFilters, loading } = useResourceStore();
   const { query, results } = useSearchStore();
+  const [editingResource, setEditingResource] = useState<Resource | null>(null);
 
   const allTags = useLiveQuery(() => db.tags.orderBy("name").toArray(), []) ?? [];
 
@@ -87,7 +90,7 @@ export function ResourceList() {
       ) : (
         <div className="space-y-2">
           {displayResources.map((resource) => (
-            <ResourceCard key={resource.id} resource={resource} />
+            <ResourceCard key={resource.id} resource={resource} onEdit={setEditingResource} />
           ))}
         </div>
       )}
@@ -98,6 +101,14 @@ export function ResourceList() {
           {displayResources.length} resource{displayResources.length !== 1 ? "s" : ""}
           {query && ` matching "${query}"`}
         </p>
+      )}
+
+      {/* Edit modal */}
+      {editingResource && (
+        <EditResourceModal
+          resource={editingResource}
+          onClose={() => setEditingResource(null)}
+        />
       )}
     </div>
   );
