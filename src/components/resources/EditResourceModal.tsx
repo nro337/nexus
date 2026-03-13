@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useResourceStore } from "../../store/useResourceStore";
 import { TagCombobox } from "../capture/TagCombobox";
+import { WikilinkTextarea } from "../ui/WikilinkTextarea";
 import { getResourceTags, setResourceTags } from "../../db/resources";
+import { syncWikilinkConnections } from "../../lib/wikilinks";
 import type { Resource, ResourceType, SourcePlatform } from "../../types";
 import { RESOURCE_TYPE_LABELS, SOURCE_LABELS } from "../../lib/utils";
 
@@ -39,6 +41,7 @@ export function EditResourceModal({ resource, onClose }: EditResourceModalProps)
         source,
       });
       await setResourceTags(resource.id, tagIds);
+      await syncWikilinkConnections(resource.id, content);
       onClose();
     } finally {
       setSaving(false);
@@ -112,12 +115,11 @@ export function EditResourceModal({ resource, onClose }: EditResourceModalProps)
             <label className="block text-xs font-medium mb-1.5" style={{ color: "var(--color-nexus-text-muted)" }}>
               Content / Notes
             </label>
-            <textarea
+            <WikilinkTextarea
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Paste a snippet, write notes, or leave blank..."
+              onChange={setContent}
+              placeholder="Paste a snippet, write notes, or leave blank... (type [[ to link a resource)"
               rows={4}
-              className="nexus-input resize-y"
             />
           </div>
 
