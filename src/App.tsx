@@ -11,7 +11,10 @@ import { CaptureModal } from "./components/capture/CaptureModal";
 export type PageId = "dashboard" | "resources" | "graph" | "capture";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<PageId>("dashboard");
+  const [currentPage, setCurrentPage] = useState<PageId>(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("capture") === "true" ? "capture" : "dashboard";
+  });
   const [captureModalOpen, setCaptureModalOpen] = useState(false);
   const loadResources = useResourceStore((s) => s.loadResources);
 
@@ -33,12 +36,6 @@ export default function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("capture") === "true") {
-      setCurrentPage("capture");
-    }
-  }, []);
 
   const renderPage = () => {
     switch (currentPage) {
