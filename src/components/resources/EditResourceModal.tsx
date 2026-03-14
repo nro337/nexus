@@ -27,6 +27,16 @@ export function EditResourceModal({ resource, onClose }: EditResourceModalProps)
     });
   }, [resource.id]);
 
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   const handleSave = async () => {
     if (!title.trim()) return;
     setSaving(true);
