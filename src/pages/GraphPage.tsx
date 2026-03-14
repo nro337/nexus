@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef, useState } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import { useGraphStore } from "../store/useGraphStore";
+import { useThemeStore } from "../store/useThemeStore";
 
 type FGNode = { id: string; label: string; color?: string; val?: number; x?: number; y?: number };
 type FGLink = { source: string; target: string };
@@ -8,6 +9,7 @@ type FGGraphData = { nodes: FGNode[]; links: FGLink[] };
 
 export function GraphPage() {
   const { graphData, loading, loadGraph, selectNode, selectedNodeId } = useGraphStore();
+  const { theme } = useThemeStore();
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
 
@@ -67,13 +69,12 @@ export function GraphPage() {
           const n = node as FGNode;
           const label = n.label;
           const fontSize = Math.max(10 / globalScale, 3);
+          const labelColorSelected = theme === "light" ? "#1a1d27" : "#ffffff";
+          const labelColorDefault = theme === "light" ? "rgba(26, 29, 39, 0.75)" : "rgba(226, 228, 234, 0.8)";
           ctx.font = `${fontSize}px DM Sans, sans-serif`;
           ctx.textAlign = "center";
           ctx.textBaseline = "top";
-          ctx.fillStyle =
-            node.id === selectedNodeId
-              ? "#ffffff"
-              : "rgba(226, 228, 234, 0.8)";
+          ctx.fillStyle = node.id === selectedNodeId ? labelColorSelected : labelColorDefault;
           ctx.fillText(label, node.x!, (node.y ?? 0) + (n.val ?? 4) + 2);
         }}
         width={dimensions.width}

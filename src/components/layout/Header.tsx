@@ -1,4 +1,5 @@
 import { useSearchStore } from "../../store/useSearchStore";
+import { useThemeStore } from "../../store/useThemeStore";
 import type { PageId } from "../../App";
 
 const PAGE_TITLES: Record<PageId, string> = {
@@ -15,6 +16,7 @@ interface HeaderProps {
 
 export function Header({ onQuickCapture, currentPage }: HeaderProps) {
   const { query, setQuery } = useSearchStore();
+  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <header
@@ -46,6 +48,16 @@ export function Header({ onQuickCapture, currentPage }: HeaderProps) {
         {/* Quick capture button */}
         <button onClick={onQuickCapture} className="nexus-btn nexus-btn-primary text-sm">
           <span className="text-lg leading-none">+</span> Capture
+        </button>
+
+        {/* Theme toggle */}
+        <button
+          onClick={toggleTheme}
+          className="nexus-btn nexus-btn-ghost text-sm"
+          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {theme === "dark" ? "☀" : "☾"}
         </button>
       </div>
     </header>
