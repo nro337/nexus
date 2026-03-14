@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useResourceStore } from "../../store/useResourceStore";
 import { TagCombobox } from "./TagCombobox";
+import { WikilinkTextarea } from "../ui/WikilinkTextarea";
 import { extractUrlMetadata, detectSource } from "../../lib/metadata";
+import { syncWikilinkConnections } from "../../lib/wikilinks";
 import type { ResourceType, SourcePlatform } from "../../types";
 import { RESOURCE_TYPE_LABELS, SOURCE_LABELS } from "../../lib/utils";
 
@@ -46,7 +48,8 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
     if (!title.trim()) return;
     setSaving(true);
     try {
-      await addResource({ title, url: url || undefined, content, type, source, thumbnail }, tagIds);
+      const resource = await addResource({ title, url: url || undefined, content, type, source, thumbnail }, tagIds);
+      await syncWikilinkConnections(resource.id, content);
       // Reset
       setUrl("");
       setTitle("");
@@ -97,12 +100,11 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
         <label className="block text-xs font-medium mb-1.5" style={{ color: "var(--color-nexus-text-muted)" }}>
           Content / Notes
         </label>
-        <textarea
+        <WikilinkTextarea
           value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Paste a snippet, write notes, or leave blank..."
+          onChange={setContent}
+          placeholder="Paste a snippet, write notes, or leave blank... (type [[ to link a resource)"
           rows={4}
-          className="nexus-input resize-y"
         />
       </div>
 
