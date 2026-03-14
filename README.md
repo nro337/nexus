@@ -60,6 +60,16 @@ src/
 extension/        # Chrome Extension (Manifest V3)
 ```
 
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on reporting bugs, requesting features, and submitting pull requests.
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating you agree to abide by its terms.
+
+## Security
+
+To report a vulnerability, please follow the process described in [SECURITY.md](SECURITY.md). **Do not open a public issue for security reports.**
+
 ## License
 
-Private / Personal Use
+[MIT](LICENSE) © nro337 — open source with attribution required (keep the copyright notice).
