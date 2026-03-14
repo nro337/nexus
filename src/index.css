@@ -21,6 +21,18 @@
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
 }
 
+html.light {
+  --color-nexus-bg: #f4f5f7;
+  --color-nexus-surface: #ffffff;
+  --color-nexus-surface-hover: #eaecf0;
+  --color-nexus-border: #d8dbe3;
+  --color-nexus-text: #1a1d27;
+  --color-nexus-text-muted: #6b7180;
+  --color-nexus-accent: #4f6ef7;
+  --color-nexus-accent-hover: #3d5ce8;
+  --color-nexus-danger: #e53e3e;
+}
+
 @layer base {
   body {
     background-color: var(--color-nexus-bg);
