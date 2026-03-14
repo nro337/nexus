@@ -22,7 +22,7 @@ const mockResource: Resource = {
   title: "Test Resource",
   url: "https://example.com",
   content: "",
-  type: "article",
+  type: "link",
   source: "manual",
   createdAt: new Date(),
   updatedAt: new Date(),
