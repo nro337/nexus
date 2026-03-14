@@ -11,6 +11,8 @@ interface WikilinkTextareaProps {
   placeholder?: string;
   rows?: number;
   className?: string;
+  /** ID of the resource being edited — excluded from the suggestion list. */
+  excludeId?: string;
 }
 
 interface SuggestionState {
@@ -30,6 +32,7 @@ export function WikilinkTextarea({
   placeholder,
   rows = 4,
   className = "nexus-input resize-y",
+  excludeId,
 }: WikilinkTextareaProps) {
   const [suggestion, setSuggestion] = useState<SuggestionState | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -42,6 +45,7 @@ export function WikilinkTextarea({
   const suggestions: Resource[] = suggestion
     ? resources
         .filter((r) =>
+          r.id !== excludeId &&
           r.title.toLowerCase().includes(suggestion.query.toLowerCase())
         )
         .slice(0, MAX_SUGGESTIONS)

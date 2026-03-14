@@ -120,6 +120,7 @@ export function EditResourceModal({ resource, onClose }: EditResourceModalProps)
               onChange={setContent}
               placeholder="Paste a snippet, write notes, or leave blank... (type [[ to link a resource)"
               rows={4}
+              excludeId={resource.id}
             />
           </div>
 
