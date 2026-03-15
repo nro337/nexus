@@ -1,27 +1,34 @@
-import { FuzzedDataProvider } from "@jazzer.js/core";
+import fc from "fast-check";
 import { getYouTubeThumbnailUrl, detectSource } from "../src/lib/metadata";
 
 /**
- * Fuzz test for URL-handling functions in metadata.ts.
+ * Property-based fuzz tests for URL-handling functions in metadata.ts.
  *
  * - getYouTubeThumbnailUrl: wraps new URL() in a try/catch, should never throw.
  * - detectSource: calls new URL() and may throw TypeError on invalid input;
- *   the fuzz harness explicitly ignores that expected error class.
+ *   the test explicitly ignores that expected error class.
  */
-export function fuzz(data: Buffer): void {
-  const provider = new FuzzedDataProvider(data);
-  const input = provider.consumeString(512);
+describe("getYouTubeThumbnailUrl", () => {
+  it("never throws for any string input", () => {
+    fc.assert(
+      fc.property(fc.string(), (input) => {
+        expect(() => getYouTubeThumbnailUrl(input)).not.toThrow();
+      }),
+    );
+  });
+});
 
-  // getYouTubeThumbnailUrl already handles malformed URLs internally.
-  getYouTubeThumbnailUrl(input);
-
-  // detectSource throws TypeError for malformed URLs — that is expected
-  // behaviour, not a bug. Only propagate truly unexpected error types.
-  try {
-    detectSource(input);
-  } catch (e) {
-    if (!(e instanceof TypeError)) {
-      throw e;
-    }
-  }
-}
+describe("detectSource", () => {
+  it("either returns a value or throws only TypeError for invalid URLs", () => {
+    fc.assert(
+      fc.property(fc.string(), (input) => {
+        try {
+          detectSource(input);
+        } catch (e) {
+          // TypeError for malformed URLs is expected behaviour, not a bug.
+          expect(e).toBeInstanceOf(TypeError);
+        }
+      }),
+    );
+  });
+});
