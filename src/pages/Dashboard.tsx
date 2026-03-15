@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/schema";
 import { useSearchStore } from "../store/useSearchStore";
 import { SearchResults } from "../components/search/SearchResults";
 import { ResourceCard } from "../components/resources/ResourceCard";
+import { EditResourceModal } from "../components/resources/EditResourceModal";
 import type { PageId } from "../App";
+import type { Resource } from "../types";
 
 interface DashboardProps {
   onNavigate: (page: PageId) => void;
@@ -11,6 +14,7 @@ interface DashboardProps {
 
 export function Dashboard({ onNavigate }: DashboardProps) {
   const { query } = useSearchStore();
+  const [editingResource, setEditingResource] = useState<Resource | null>(null);
 
   const resourceCount = useLiveQuery(() => db.resources.count(), []) ?? 0;
   const tagCount = useLiveQuery(() => db.tags.count(), []) ?? 0;
@@ -96,11 +100,18 @@ export function Dashboard({ onNavigate }: DashboardProps) {
         ) : (
           <div className="space-y-2">
             {recentResources.map((r) => (
-              <ResourceCard key={r.id} resource={r} />
+              <ResourceCard key={r.id} resource={r} onEdit={setEditingResource} />
             ))}
           </div>
         )}
       </div>
+
+      {editingResource && (
+        <EditResourceModal
+          resource={editingResource}
+          onClose={() => setEditingResource(null)}
+        />
+      )}
     </div>
   );
 }
