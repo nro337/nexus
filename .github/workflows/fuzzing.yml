@@ -30,9 +30,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build fuzz targets
+        run: |
+          mkdir -p fuzz/dist
+          for target in fuzz/*.fuzz.ts; do
+            out="fuzz/dist/$(basename "$target" .ts).js"
+            npx esbuild "$target" \
+              --bundle \
+              --platform=node \
+              --format=esm \
+              --external:"@jazzer.js/*" \
+              --external:@babel/preset-typescript \
+              --outfile="$out"
+          done
+
       - name: Run fuzz targets (time-limited)
         run: |
-          for target in fuzz/*.fuzz.ts; do
+          for target in fuzz/dist/*.fuzz.js; do
             echo "Fuzzing $target for 30 seconds..."
             npx jazzer "$target" -- -max_total_time=30 -timeout=10
           done
