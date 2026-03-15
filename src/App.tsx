@@ -5,10 +5,11 @@ import { ResourcesPage } from "./pages/ResourcesPage";
 import { GraphPage } from "./pages/GraphPage";
 import { Dashboard } from "./pages/Dashboard";
 import { CapturePage } from "./pages/CapturePage";
+import { SettingsPage } from "./pages/SettingsPage";
 import { useResourceStore } from "./store/useResourceStore";
 import { CaptureModal } from "./components/capture/CaptureModal";
 
-export type PageId = "dashboard" | "resources" | "graph" | "capture";
+export type PageId = "dashboard" | "resources" | "graph" | "capture" | "settings";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageId>(() => {
@@ -43,6 +44,7 @@ export default function App() {
       case "resources": return <ResourcesPage />;
       case "graph": return <GraphPage />;
       case "capture": return <CapturePage />;
+      case "settings": return <SettingsPage />;
       default: return <Dashboard onNavigate={setCurrentPage} />;
     }
   };

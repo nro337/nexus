@@ -5,6 +5,7 @@ const NAV_ITEMS: { id: PageId; label: string; icon: string }[] = [
   { id: "resources", label: "Resources", icon: "☰" },
   { id: "graph", label: "Graph", icon: "◎" },
   { id: "capture", label: "Capture", icon: "+" },
+  { id: "settings", label: "Settings", icon: "⚙" },
 ];
 
 interface SidebarProps {
