@@ -18,10 +18,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
       style={{ borderColor: "var(--color-nexus-border)", background: "var(--color-nexus-surface)" }}>
       {/* Logo */}
       <div className="px-5 py-5 flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm"
-          style={{ background: "linear-gradient(135deg, var(--color-nexus-accent), #a78bfa)" }}>
-          N
-        </div>
+        <img src="/icon.svg" alt="Nexus logo" className="w-8 h-8 rounded-lg" />
         <span className="text-lg font-semibold tracking-tight" style={{ color: "var(--color-nexus-text)" }}>
           Nexus
         </span>
