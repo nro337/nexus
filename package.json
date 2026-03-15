@@ -27,7 +27,6 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@fast-check/vitest": "^0.3.0",
-    "@jazzer.js/core": "^2.1.0",
     "@tailwindcss/vite": "^4.2.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
