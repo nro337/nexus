@@ -7,6 +7,7 @@ const PAGE_TITLES: Record<PageId, string> = {
   resources: "Resources",
   graph: "Knowledge Graph",
   capture: "Capture",
+  settings: "Settings",
 };
 
 interface HeaderProps {
