@@ -11,5 +11,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './tests/setup.ts',
+    include: ['**/*.{test,spec}.?(c|m)[jt]s?(x)', 'fuzz/**/*.fuzz.ts'],
   },
 })
