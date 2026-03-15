@@ -2,7 +2,11 @@
   <img src="assets/banner.svg" alt="Nexus — Personal Knowledge Graph" width="100%"/>
 </p>
 
+[![CI](https://github.com/nro337/nexus/actions/workflows/ci.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/nro337/nexus/actions/workflows/codeql.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nro337/nexus/badge)](https://scorecard.dev/viewer/?uri=github.com/nro337/nexus)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 A local-first browser application for collecting, organizing, and connecting information from across the web. Runs entirely in-browser with no backend — your data stays in IndexedDB.
 
