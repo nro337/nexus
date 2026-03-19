@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CaptureForm } from "./CaptureForm";
 
 interface CaptureModalProps {
@@ -5,6 +6,8 @@ interface CaptureModalProps {
 }
 
 export function CaptureModal({ onClose }: CaptureModalProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-[12vh]">
       {/* Backdrop */}
@@ -25,10 +28,11 @@ export function CaptureModal({ onClose }: CaptureModalProps) {
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-base font-semibold" style={{ color: "var(--color-nexus-text)" }}>
-            Quick Capture
+            {t("capture.title")}
           </h2>
           <button
             onClick={onClose}
+            aria-label={t("modal.close")}
             className="w-7 h-7 rounded-md flex items-center justify-center text-sm transition-colors"
             style={{ color: "var(--color-nexus-text-muted)" }}
             onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}

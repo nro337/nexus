@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "dashboard": "仪表板",
+    "resources": "资源",
+    "graph": "图谱",
+    "capture": "捕获",
+    "settings": "设置"
+  },
+  "header": {
+    "searchPlaceholder": "搜索资源...",
+    "captureButton": "捕获",
+    "switchToLight": "切换到浅色模式",
+    "switchToDark": "切换到深色模式",
+    "languageSelector": "选择语言"
+  },
+  "sidebar": {
+    "quickCapture": "快速捕获："
+  },
+  "dashboard": {
+    "welcome": "欢迎使用 Nexus",
+    "subtitle": "您的个人知识图谱。捕获、连接和发现。",
+    "stats": {
+      "resources": "资源",
+      "tags": "标签",
+      "connections": "连接",
+      "notes": "笔记"
+    },
+    "recentlyAdded": "最近添加",
+    "viewAll": "查看全部 →",
+    "nothingYet": "还没有内容",
+    "captureFirst": "捕获您的第一个资源"
+  },
+  "resources": {
+    "title": "资源",
+    "noResources": "暂无资源",
+    "noResourcesHint": "开始捕获资源以在此处查看它们。",
+    "filter": "筛选",
+    "sort": "排序",
+    "archive": "归档",
+    "unarchive": "取消归档",
+    "delete": "删除",
+    "edit": "编辑",
+    "deleting": "删除中…",
+    "archiving": "归档中…",
+    "type": "类型",
+    "source": "来源",
+    "tags": "标签",
+    "allTypes": "所有类型",
+    "allSources": "所有来源",
+    "clearFilters": "清除筛选",
+    "showArchived": "显示已归档",
+    "hideArchived": "隐藏已归档",
+    "showMore": "显示更多",
+    "showLess": "收起",
+    "countOne": "{{count}} 个资源",
+    "countMany": "{{count}} 个资源",
+    "loading": "正在加载..."
+  },
+  "capture": {
+    "title": "捕获资源",
+    "subtitle": "将链接、片段或笔记保存到您的知识图谱中。",
+    "url": "URL",
+    "urlPlaceholder": "https://...",
+    "fetchingMeta": "获取中...",
+    "titleLabel": "标题",
+    "titlePlaceholder": "资源标题",
+    "contentLabel": "内容 / 笔记",
+    "contentPlaceholder": "添加笔记、摘要或粘贴内容...",
+    "typeLabel": "类型",
+    "sourceLabel": "来源",
+    "tagsLabel": "标签",
+    "save": "保存",
+    "saving": "保存中…",
+    "cancel": "取消"
+  },
+  "settings": {
+    "title": "设置",
+    "subtitle": "管理您的标签和偏好设置。",
+    "tags": "标签",
+    "noTags": "暂无标签。捕获资源时创建标签。",
+    "edit": "编辑",
+    "delete": "删除",
+    "deleting": "删除中…",
+    "language": "语言",
+    "languageSubtitle": "选择界面的显示语言。",
+    "theme": "主题",
+    "themeSubtitle": "选择您偏好的配色方案。"
+  },
+  "graph": {
+    "title": "知识图谱",
+    "noData": "暂无连接",
+    "noDataHint": "添加资源并创建连接以查看您的知识图谱。",
+    "nodes": "节点",
+    "edges": "边",
+    "loading": "正在加载图谱..."
+  },
+  "search": {
+    "results": "搜索结果",
+    "noResults": "未找到结果：",
+    "noResultsHint": "请尝试其他搜索词。",
+    "resultsCount": "{{count}} 个结果",
+    "resultsCount_plural": "{{count}} 个结果",
+    "searching": "搜索中..."
+  },
+  "modal": {
+    "close": "关闭",
+    "save": "保存",
+    "saving": "保存中…",
+    "cancel": "取消",
+    "delete": "删除",
+    "deleting": "删除中…",
+    "confirm": "确认",
+    "editResource": "编辑资源"
+  },
+  "errors": {
+    "deleteTag": "删除标签「{{name}}」失败。请重试。",
+    "generic": "出现错误，请重试。"
+  },
+  "resourceTypes": {
+    "link": "链接",
+    "snippet": "片段",
+    "image": "图片",
+    "note": "笔记",
+    "file": "文件"
+  },
+  "sources": {
+    "web": "网页",
+    "reddit": "Reddit",
+    "twitter": "Twitter/X",
+    "bluesky": "Bluesky",
+    "notion": "Notion",
+    "youtube": "YouTube",
+    "github": "GitHub",
+    "manual": "手动",
+    "other": "其他"
+  },
+  "connectionTypes": {
+    "related_to": "相关",
+    "builds_on": "基于",
+    "contradicts": "矛盾",
+    "source_for": "来源",
+    "inspired_by": "启发于",
+    "part_of": "属于",
+    "custom": "自定义"
+  }
+}

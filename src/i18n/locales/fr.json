@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "resources": "Ressources",
+    "graph": "Graphe",
+    "capture": "Capturer",
+    "settings": "Paramètres"
+  },
+  "header": {
+    "searchPlaceholder": "Rechercher des ressources...",
+    "captureButton": "Capturer",
+    "switchToLight": "Passer en mode clair",
+    "switchToDark": "Passer en mode sombre",
+    "languageSelector": "Sélectionner la langue"
+  },
+  "sidebar": {
+    "quickCapture": "Capture rapide :"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue sur Nexus",
+    "subtitle": "Votre graphe de connaissances personnel. Capturez, connectez et découvrez.",
+    "stats": {
+      "resources": "Ressources",
+      "tags": "Étiquettes",
+      "connections": "Connexions",
+      "notes": "Notes"
+    },
+    "recentlyAdded": "Ajouté récemment",
+    "viewAll": "Voir tout →",
+    "nothingYet": "Rien ici encore",
+    "captureFirst": "Capturez votre première ressource"
+  },
+  "resources": {
+    "title": "Ressources",
+    "noResources": "Aucune ressource pour l'instant",
+    "noResourcesHint": "Commencez à capturer des ressources pour les voir ici.",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "archive": "Archiver",
+    "unarchive": "Désarchiver",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "deleting": "Suppression…",
+    "archiving": "Archivage…",
+    "type": "Type",
+    "source": "Source",
+    "tags": "Étiquettes",
+    "allTypes": "Tous les types",
+    "allSources": "Toutes les sources",
+    "clearFilters": "Effacer les filtres",
+    "showArchived": "Afficher les archivés",
+    "hideArchived": "Masquer les archivés",
+    "showMore": "Afficher plus",
+    "showLess": "Afficher moins",
+    "countOne": "{{count}} ressource",
+    "countMany": "{{count}} ressources",
+    "loading": "Chargement..."
+  },
+  "capture": {
+    "title": "Capturer une Ressource",
+    "subtitle": "Enregistrez un lien, un extrait ou une note dans votre graphe de connaissances.",
+    "url": "URL",
+    "urlPlaceholder": "https://...",
+    "fetchingMeta": "récupération...",
+    "titleLabel": "Titre",
+    "titlePlaceholder": "Titre de la ressource",
+    "contentLabel": "Contenu / Notes",
+    "contentPlaceholder": "Ajoutez des notes, des résumés ou collez du contenu...",
+    "typeLabel": "Type",
+    "sourceLabel": "Source",
+    "tagsLabel": "Étiquettes",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "cancel": "Annuler"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "Gérez vos étiquettes et préférences.",
+    "tags": "Étiquettes",
+    "noTags": "Aucune étiquette pour l'instant. Créez des étiquettes lors de la capture de ressources.",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleting": "Suppression…",
+    "language": "Langue",
+    "languageSubtitle": "Choisissez la langue d'affichage de l'interface.",
+    "theme": "Thème",
+    "themeSubtitle": "Choisissez votre schéma de couleurs préféré."
+  },
+  "graph": {
+    "title": "Graphe de Connaissances",
+    "noData": "Aucune connexion pour l'instant",
+    "noDataHint": "Ajoutez des ressources et créez des connexions pour voir votre graphe de connaissances.",
+    "nodes": "nœuds",
+    "edges": "arêtes",
+    "loading": "Chargement du graphe..."
+  },
+  "search": {
+    "results": "Résultats de Recherche",
+    "noResults": "Aucun résultat pour",
+    "noResultsHint": "Essayez un autre terme de recherche.",
+    "resultsCount": "{{count}} résultat",
+    "resultsCount_plural": "{{count}} résultats",
+    "searching": "Recherche en cours..."
+  },
+  "modal": {
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "deleting": "Suppression…",
+    "confirm": "Confirmer",
+    "editResource": "Modifier la ressource"
+  },
+  "errors": {
+    "deleteTag": "Impossible de supprimer l'étiquette \"{{name}}\". Veuillez réessayer.",
+    "generic": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "resourceTypes": {
+    "link": "Lien",
+    "snippet": "Extrait",
+    "image": "Image",
+    "note": "Note",
+    "file": "Fichier"
+  },
+  "sources": {
+    "web": "Web",
+    "reddit": "Reddit",
+    "twitter": "Twitter/X",
+    "bluesky": "Bluesky",
+    "notion": "Notion",
+    "youtube": "YouTube",
+    "github": "GitHub",
+    "manual": "Manuel",
+    "other": "Autre"
+  },
+  "connectionTypes": {
+    "related_to": "Lié à",
+    "builds_on": "Construit sur",
+    "contradicts": "Contredit",
+    "source_for": "Source de",
+    "inspired_by": "Inspiré par",
+    "part_of": "Fait partie de",
+    "custom": "Personnalisé"
+  }
+}

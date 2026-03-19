@@ -1,14 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { useSearchStore } from "../../store/useSearchStore";
 import { useThemeStore } from "../../store/useThemeStore";
+import { useLanguageStore } from "../../store/useLanguageStore";
+import { SUPPORTED_LANGUAGES } from "../../i18n";
 import type { PageId } from "../../App";
-
-const PAGE_TITLES: Record<PageId, string> = {
-  dashboard: "Dashboard",
-  resources: "Resources",
-  graph: "Knowledge Graph",
-  capture: "Capture",
-  settings: "Settings",
-};
 
 interface HeaderProps {
   onQuickCapture: () => void;
@@ -16,8 +11,18 @@ interface HeaderProps {
 }
 
 export function Header({ onQuickCapture, currentPage }: HeaderProps) {
+  const { t } = useTranslation();
   const { query, setQuery } = useSearchStore();
   const { theme, toggleTheme } = useThemeStore();
+  const { language, setLanguage } = useLanguageStore();
+
+  const pageTitles: Record<PageId, string> = {
+    dashboard: t("nav.dashboard"),
+    resources: t("nav.resources"),
+    graph: t("nav.graph"),
+    capture: t("nav.capture"),
+    settings: t("nav.settings"),
+  };
 
   return (
     <header
@@ -25,7 +30,7 @@ export function Header({ onQuickCapture, currentPage }: HeaderProps) {
       style={{ borderColor: "var(--color-nexus-border)", background: "var(--color-nexus-surface)" }}
     >
       <h1 className="text-base font-semibold" style={{ color: "var(--color-nexus-text)" }}>
-        {PAGE_TITLES[currentPage]}
+        {pageTitles[currentPage]}
       </h1>
 
       <div className="flex items-center gap-3">
@@ -33,7 +38,7 @@ export function Header({ onQuickCapture, currentPage }: HeaderProps) {
         <div className="relative">
           <input
             type="text"
-            placeholder="Search resources..."
+            placeholder={t("header.searchPlaceholder")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="nexus-input w-64 pl-8 text-sm"
@@ -48,15 +53,31 @@ export function Header({ onQuickCapture, currentPage }: HeaderProps) {
 
         {/* Quick capture button */}
         <button onClick={onQuickCapture} className="nexus-btn nexus-btn-primary text-sm">
-          <span className="text-lg leading-none">+</span> Capture
+          <span className="text-lg leading-none">+</span> {t("header.captureButton")}
         </button>
+
+        {/* Language selector */}
+        <select
+          value={language}
+          onChange={(e) => setLanguage(e.target.value as typeof language)}
+          aria-label={t("header.languageSelector")}
+          title={t("header.languageSelector")}
+          className="nexus-btn nexus-btn-ghost text-sm"
+          style={{ cursor: "pointer" }}
+        >
+          {SUPPORTED_LANGUAGES.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.label}
+            </option>
+          ))}
+        </select>
 
         {/* Theme toggle */}
         <button
           onClick={toggleTheme}
           className="nexus-btn nexus-btn-ghost text-sm"
-          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={theme === "dark" ? t("header.switchToLight") : t("header.switchToDark")}
+          title={theme === "dark" ? t("header.switchToLight") : t("header.switchToDark")}
         >
           {theme === "dark" ? "☀" : "☾"}
         </button>
