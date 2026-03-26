@@ -42,7 +42,16 @@ export function applyLanguage(code: LanguageCode): void {
 }
 
 i18n.use(initReactI18next).init({
-  resources: { en, es, fr, de, pt, ja, zh, ar },
+  resources: {
+    en: { translation: en },
+    es: { translation: es },
+    fr: { translation: fr },
+    de: { translation: de },
+    pt: { translation: pt },
+    ja: { translation: ja },
+    zh: { translation: zh },
+    ar: { translation: ar },
+  },
   lng: getStoredLanguage(),
   fallbackLng: "en",
   interpolation: { escapeValue: false },
