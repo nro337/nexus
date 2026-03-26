@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "resources": "Recursos",
+    "graph": "Grafo",
+    "capture": "Capturar",
+    "settings": "Ajustes"
+  },
+  "header": {
+    "searchPlaceholder": "Buscar recursos...",
+    "captureButton": "Capturar",
+    "switchToLight": "Cambiar a modo claro",
+    "switchToDark": "Cambiar a modo oscuro",
+    "languageSelector": "Seleccionar idioma"
+  },
+  "sidebar": {
+    "quickCapture": "Captura rápida:"
+  },
+  "dashboard": {
+    "welcome": "Bienvenido a Nexus",
+    "subtitle": "Tu grafo de conocimiento personal. Captura, conecta y descubre.",
+    "stats": {
+      "resources": "Recursos",
+      "tags": "Etiquetas",
+      "connections": "Conexiones",
+      "notes": "Notas"
+    },
+    "recentlyAdded": "Añadido recientemente",
+    "viewAll": "Ver todo →",
+    "nothingYet": "Nada aquí todavía",
+    "captureFirst": "Captura tu primer recurso"
+  },
+  "resources": {
+    "title": "Recursos",
+    "noResources": "Aún no hay recursos",
+    "noResourcesHint": "Empieza a capturar recursos para verlos aquí.",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "archive": "Archivar",
+    "unarchive": "Desarchivar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "deleting": "Eliminando…",
+    "archiving": "Archivando…",
+    "type": "Tipo",
+    "source": "Fuente",
+    "tags": "Etiquetas",
+    "allTypes": "Todos los tipos",
+    "allSources": "Todas las fuentes",
+    "clearFilters": "Limpiar filtros",
+    "showArchived": "Mostrar archivados",
+    "hideArchived": "Ocultar archivados",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos",
+    "countOne": "{{count}} recurso",
+    "countMany": "{{count}} recursos",
+    "loading": "Cargando..."
+  },
+  "capture": {
+    "title": "Capturar Recurso",
+    "subtitle": "Guarda un enlace, fragmento o nota en tu grafo de conocimiento.",
+    "url": "URL",
+    "urlPlaceholder": "https://...",
+    "fetchingMeta": "obteniendo...",
+    "titleLabel": "Título",
+    "titlePlaceholder": "Título del recurso",
+    "contentLabel": "Contenido / Notas",
+    "contentPlaceholder": "Añade notas, resúmenes o pega contenido...",
+    "typeLabel": "Tipo",
+    "sourceLabel": "Fuente",
+    "tagsLabel": "Etiquetas",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "cancel": "Cancelar"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "subtitle": "Gestiona tus etiquetas y preferencias.",
+    "tags": "Etiquetas",
+    "noTags": "Aún no hay etiquetas. Crea etiquetas al capturar recursos.",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "deleting": "Eliminando…",
+    "language": "Idioma",
+    "languageSubtitle": "Elige el idioma de visualización de la interfaz.",
+    "theme": "Tema",
+    "themeSubtitle": "Elige tu esquema de colores preferido."
+  },
+  "graph": {
+    "title": "Grafo de Conocimiento",
+    "noData": "Sin conexiones todavía",
+    "noDataHint": "Añade recursos y crea conexiones para ver tu grafo de conocimiento.",
+    "nodes": "nodos",
+    "edges": "aristas",
+    "loading": "Cargando grafo..."
+  },
+  "search": {
+    "results": "Resultados de Búsqueda",
+    "noResults": "Sin resultados para",
+    "noResultsHint": "Prueba con otro término de búsqueda.",
+    "resultsCount": "{{count}} resultado",
+    "resultsCount_plural": "{{count}} resultados",
+    "searching": "Buscando..."
+  },
+  "modal": {
+    "close": "Cerrar",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "deleting": "Eliminando…",
+    "confirm": "Confirmar",
+    "editResource": "Editar recurso"
+  },
+  "errors": {
+    "deleteTag": "Error al eliminar la etiqueta \"{{name}}\". Por favor, inténtalo de nuevo.",
+    "generic": "Algo salió mal. Por favor, inténtalo de nuevo."
+  },
+  "resourceTypes": {
+    "link": "Enlace",
+    "snippet": "Fragmento",
+    "image": "Imagen",
+    "note": "Nota",
+    "file": "Archivo"
+  },
+  "sources": {
+    "web": "Web",
+    "reddit": "Reddit",
+    "twitter": "Twitter/X",
+    "bluesky": "Bluesky",
+    "notion": "Notion",
+    "youtube": "YouTube",
+    "github": "GitHub",
+    "manual": "Manual",
+    "other": "Otro"
+  },
+  "connectionTypes": {
+    "related_to": "Relacionado con",
+    "builds_on": "Construye sobre",
+    "contradicts": "Contradice",
+    "source_for": "Fuente de",
+    "inspired_by": "Inspirado por",
+    "part_of": "Parte de",
+    "custom": "Personalizado"
+  }
+}

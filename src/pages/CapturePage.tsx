@@ -1,7 +1,9 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { CaptureForm } from "../components/capture/CaptureForm";
 
 export function CapturePage() {
+  const { t } = useTranslation();
   const initialData = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     return {
@@ -15,10 +17,10 @@ export function CapturePage() {
     <div className="max-w-lg mx-auto">
       <div className="mb-6">
         <h2 className="text-lg font-semibold" style={{ color: "var(--color-nexus-text)" }}>
-          Capture Resource
+          {t("capture.title")}
         </h2>
         <p className="text-sm mt-0.5" style={{ color: "var(--color-nexus-text-muted)" }}>
-          Save a link, snippet, or note to your knowledge graph.
+          {t("capture.subtitle")}
         </p>
       </div>
 

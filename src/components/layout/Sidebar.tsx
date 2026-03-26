@@ -1,12 +1,5 @@
+import { useTranslation } from "react-i18next";
 import type { PageId } from "../../App";
-
-const NAV_ITEMS: { id: PageId; label: string; icon: string }[] = [
-  { id: "dashboard", label: "Dashboard", icon: "◆" },
-  { id: "resources", label: "Resources", icon: "☰" },
-  { id: "graph", label: "Graph", icon: "◎" },
-  { id: "capture", label: "Capture", icon: "+" },
-  { id: "settings", label: "Settings", icon: "⚙" },
-];
 
 interface SidebarProps {
   currentPage: PageId;
@@ -14,6 +7,16 @@ interface SidebarProps {
 }
 
 export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
+  const { t } = useTranslation();
+
+  const NAV_ITEMS: { id: PageId; label: string; icon: string }[] = [
+    { id: "dashboard", label: t("nav.dashboard"), icon: "◆" },
+    { id: "resources", label: t("nav.resources"), icon: "☰" },
+    { id: "graph", label: t("nav.graph"), icon: "◎" },
+    { id: "capture", label: t("nav.capture"), icon: "+" },
+    { id: "settings", label: t("nav.settings"), icon: "⚙" },
+  ];
+
   return (
     <aside className="w-56 shrink-0 flex flex-col border-r"
       style={{ borderColor: "var(--color-nexus-border)", background: "var(--color-nexus-surface)" }}>
@@ -55,7 +58,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
       {/* Keyboard shortcut hint */}
       <div className="px-5 py-4 border-t" style={{ borderColor: "var(--color-nexus-border)" }}>
         <p className="text-xs" style={{ color: "var(--color-nexus-text-muted)" }}>
-          Quick capture:{" "}
+          {t("sidebar.quickCapture")}{" "}
           <kbd className="px-1.5 py-0.5 rounded text-[10px] font-mono"
             style={{ background: "var(--color-nexus-bg)", color: "var(--color-nexus-text-muted)" }}>
             ⌘K

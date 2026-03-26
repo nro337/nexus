@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "resources": "Resources",
+    "graph": "Graph",
+    "capture": "Capture",
+    "settings": "Settings"
+  },
+  "header": {
+    "searchPlaceholder": "Search resources...",
+    "captureButton": "Capture",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "languageSelector": "Select language"
+  },
+  "sidebar": {
+    "quickCapture": "Quick capture:"
+  },
+  "dashboard": {
+    "welcome": "Welcome to Nexus",
+    "subtitle": "Your personal knowledge graph. Capture, connect, and discover.",
+    "stats": {
+      "resources": "Resources",
+      "tags": "Tags",
+      "connections": "Connections",
+      "notes": "Notes"
+    },
+    "recentlyAdded": "Recently added",
+    "viewAll": "View all →",
+    "nothingYet": "Nothing here yet",
+    "captureFirst": "Capture your first resource"
+  },
+  "resources": {
+    "title": "Resources",
+    "noResources": "No resources yet",
+    "noResourcesHint": "Start capturing resources to see them here.",
+    "filter": "Filter",
+    "sort": "Sort",
+    "archive": "Archive",
+    "unarchive": "Unarchive",
+    "delete": "Delete",
+    "edit": "Edit",
+    "deleting": "Deleting…",
+    "archiving": "Archiving…",
+    "type": "Type",
+    "source": "Source",
+    "tags": "Tags",
+    "allTypes": "All types",
+    "allSources": "All sources",
+    "clearFilters": "Clear filters",
+    "showArchived": "Show archived",
+    "hideArchived": "Hide archived",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "countOne": "{{count}} resource",
+    "countMany": "{{count}} resources",
+    "loading": "Loading..."
+  },
+  "capture": {
+    "title": "Capture Resource",
+    "subtitle": "Save a link, snippet, or note to your knowledge graph.",
+    "url": "URL",
+    "urlPlaceholder": "https://...",
+    "fetchingMeta": "fetching...",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Resource title",
+    "contentLabel": "Content / Notes",
+    "contentPlaceholder": "Add notes, summaries, or paste content...",
+    "typeLabel": "Type",
+    "sourceLabel": "Source",
+    "tagsLabel": "Tags",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your tags and preferences.",
+    "tags": "Tags",
+    "noTags": "No tags yet. Create tags when capturing resources.",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleting": "Deleting…",
+    "language": "Language",
+    "languageSubtitle": "Choose the display language for the interface.",
+    "theme": "Theme",
+    "themeSubtitle": "Choose your preferred color scheme."
+  },
+  "graph": {
+    "title": "Knowledge Graph",
+    "noData": "No connections yet",
+    "noDataHint": "Add resources and create connections to see your knowledge graph.",
+    "nodes": "nodes",
+    "edges": "edges",
+    "loading": "Loading graph..."
+  },
+  "search": {
+    "results": "Search Results",
+    "noResults": "No results for",
+    "noResultsHint": "Try a different search term.",
+    "resultsCount": "{{count}} result",
+    "resultsCount_plural": "{{count}} results",
+    "searching": "Searching..."
+  },
+  "modal": {
+    "close": "Close",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleting": "Deleting…",
+    "confirm": "Confirm",
+    "editResource": "Edit Resource"
+  },
+  "errors": {
+    "deleteTag": "Failed to delete tag \"{{name}}\". Please try again.",
+    "generic": "Something went wrong. Please try again."
+  },
+  "resourceTypes": {
+    "link": "Link",
+    "snippet": "Snippet",
+    "image": "Image",
+    "note": "Note",
+    "file": "File"
+  },
+  "sources": {
+    "web": "Web",
+    "reddit": "Reddit",
+    "twitter": "Twitter/X",
+    "bluesky": "Bluesky",
+    "notion": "Notion",
+    "youtube": "YouTube",
+    "github": "GitHub",
+    "manual": "Manual",
+    "other": "Other"
+  },
+  "connectionTypes": {
+    "related_to": "Related to",
+    "builds_on": "Builds on",
+    "contradicts": "Contradicts",
+    "source_for": "Source for",
+    "inspired_by": "Inspired by",
+    "part_of": "Part of",
+    "custom": "Custom"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "resources": "الموارد",
+    "graph": "الرسم البياني",
+    "capture": "التقاط",
+    "settings": "الإعدادات"
+  },
+  "header": {
+    "searchPlaceholder": "البحث في الموارد...",
+    "captureButton": "التقاط",
+    "switchToLight": "التبديل إلى الوضع الفاتح",
+    "switchToDark": "التبديل إلى الوضع الداكن",
+    "languageSelector": "اختر اللغة"
+  },
+  "sidebar": {
+    "quickCapture": "التقاط سريع:"
+  },
+  "dashboard": {
+    "welcome": "مرحباً بك في Nexus",
+    "subtitle": "رسم بياني للمعرفة الشخصية. التقط واربط واكتشف.",
+    "stats": {
+      "resources": "الموارد",
+      "tags": "العلامات",
+      "connections": "الاتصالات",
+      "notes": "الملاحظات"
+    },
+    "recentlyAdded": "تمت الإضافة مؤخراً",
+    "viewAll": "عرض الكل ←",
+    "nothingYet": "لا يوجد شيء هنا بعد",
+    "captureFirst": "التقط موردك الأول"
+  },
+  "resources": {
+    "title": "الموارد",
+    "noResources": "لا توجد موارد بعد",
+    "noResourcesHint": "ابدأ بالتقاط الموارد لرؤيتها هنا.",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "archive": "أرشفة",
+    "unarchive": "إلغاء الأرشفة",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "deleting": "جارٍ الحذف…",
+    "archiving": "جارٍ الأرشفة…",
+    "type": "النوع",
+    "source": "المصدر",
+    "tags": "العلامات",
+    "allTypes": "جميع الأنواع",
+    "allSources": "جميع المصادر",
+    "clearFilters": "مسح الفلاتر",
+    "showArchived": "إظهار المؤرشفة",
+    "hideArchived": "إخفاء المؤرشفة",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل",
+    "countOne": "{{count}} مورد",
+    "countMany": "{{count}} موارد",
+    "loading": "جارٍ التحميل..."
+  },
+  "capture": {
+    "title": "التقاط مورد",
+    "subtitle": "احفظ رابطاً أو مقتطفاً أو ملاحظة في رسمك البياني للمعرفة.",
+    "url": "الرابط",
+    "urlPlaceholder": "https://...",
+    "fetchingMeta": "جارٍ الجلب...",
+    "titleLabel": "العنوان",
+    "titlePlaceholder": "عنوان المورد",
+    "contentLabel": "المحتوى / الملاحظات",
+    "contentPlaceholder": "أضف ملاحظات أو ملخصات أو الصق المحتوى...",
+    "typeLabel": "النوع",
+    "sourceLabel": "المصدر",
+    "tagsLabel": "العلامات",
+    "save": "حفظ",
+    "saving": "جارٍ الحفظ…",
+    "cancel": "إلغاء"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "subtitle": "إدارة علاماتك وتفضيلاتك.",
+    "tags": "العلامات",
+    "noTags": "لا توجد علامات بعد. أنشئ علامات عند التقاط الموارد.",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "deleting": "جارٍ الحذف…",
+    "language": "اللغة",
+    "languageSubtitle": "اختر لغة عرض الواجهة.",
+    "theme": "المظهر",
+    "themeSubtitle": "اختر نظام الألوان المفضل لديك."
+  },
+  "graph": {
+    "title": "الرسم البياني للمعرفة",
+    "noData": "لا توجد اتصالات بعد",
+    "noDataHint": "أضف موارد وأنشئ اتصالات لرؤية الرسم البياني للمعرفة.",
+    "nodes": "عقد",
+    "edges": "حواف",
+    "loading": "جارٍ تحميل الرسم البياني..."
+  },
+  "search": {
+    "results": "نتائج البحث",
+    "noResults": "لا توجد نتائج لـ",
+    "noResultsHint": "جرب مصطلح بحث مختلف.",
+    "resultsCount": "{{count}} نتيجة",
+    "resultsCount_plural": "{{count}} نتائج",
+    "searching": "جارٍ البحث..."
+  },
+  "modal": {
+    "close": "إغلاق",
+    "save": "حفظ",
+    "saving": "جارٍ الحفظ…",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "deleting": "جارٍ الحذف…",
+    "confirm": "تأكيد",
+    "editResource": "تعديل المورد"
+  },
+  "errors": {
+    "deleteTag": "فشل حذف العلامة \"{{name}}\". يرجى المحاولة مرة أخرى.",
+    "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  },
+  "resourceTypes": {
+    "link": "رابط",
+    "snippet": "مقتطف",
+    "image": "صورة",
+    "note": "ملاحظة",
+    "file": "ملف"
+  },
+  "sources": {
+    "web": "الويب",
+    "reddit": "Reddit",
+    "twitter": "Twitter/X",
+    "bluesky": "Bluesky",
+    "notion": "Notion",
+    "youtube": "YouTube",
+    "github": "GitHub",
+    "manual": "يدوي",
+    "other": "أخرى"
+  },
+  "connectionTypes": {
+    "related_to": "مرتبط بـ",
+    "builds_on": "مبني على",
+    "contradicts": "يتناقض مع",
+    "source_for": "مصدر لـ",
+    "inspired_by": "مستوحى من",
+    "part_of": "جزء من",
+    "custom": "مخصص"
+  }
+}
