@@ -84,7 +84,8 @@
     "language": "言語",
     "languageSubtitle": "インターフェースの表示言語を選択します。",
     "theme": "テーマ",
-    "themeSubtitle": "お好みのカラースキームを選択します。"
+    "themeSubtitle": "お好みのカラースキームを選択します。",
+    "themeCustom": "カスタム"
   },
   "graph": {
     "title": "知識グラフ",
