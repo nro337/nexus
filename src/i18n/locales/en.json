@@ -84,7 +84,8 @@
     "language": "Language",
     "languageSubtitle": "Choose the display language for the interface.",
     "theme": "Theme",
-    "themeSubtitle": "Choose your preferred color scheme."
+    "themeSubtitle": "Choose your preferred color scheme.",
+    "themeCustom": "Custom"
   },
   "graph": {
     "title": "Knowledge Graph",

@@ -84,7 +84,8 @@
     "language": "Sprache",
     "languageSubtitle": "Wählen Sie die Anzeigesprache der Benutzeroberfläche.",
     "theme": "Design",
-    "themeSubtitle": "Wählen Sie Ihr bevorzugtes Farbschema."
+    "themeSubtitle": "Wählen Sie Ihr bevorzugtes Farbschema.",
+    "themeCustom": "Benutzerdefiniert"
   },
   "graph": {
     "title": "Wissensgraph",

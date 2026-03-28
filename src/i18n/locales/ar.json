@@ -84,7 +84,8 @@
     "language": "اللغة",
     "languageSubtitle": "اختر لغة عرض الواجهة.",
     "theme": "المظهر",
-    "themeSubtitle": "اختر نظام الألوان المفضل لديك."
+    "themeSubtitle": "اختر نظام الألوان المفضل لديك.",
+    "themeCustom": "مخصص"
   },
   "graph": {
     "title": "الرسم البياني للمعرفة",
