@@ -70,6 +70,29 @@ describe("useLanguageStore", () => {
     expect(codes).toContain("ar");
   });
 
+  it("SUPPORTED_LANGUAGES contains Italian", () => {
+    const codes = SUPPORTED_LANGUAGES.map((l) => l.code);
+    expect(codes).toContain("it");
+  });
+
+  it("SUPPORTED_LANGUAGES marks Italian as LTR", () => {
+    const it = SUPPORTED_LANGUAGES.find((l) => l.code === "it");
+    expect(it?.dir).toBe("ltr");
+  });
+
+  it("SUPPORTED_LANGUAGES labels Italian as Italiano", () => {
+    const it = SUPPORTED_LANGUAGES.find((l) => l.code === "it");
+    expect(it?.label).toBe("Italiano");
+  });
+
+  it("setLanguage works for Italian", () => {
+    useLanguageStore.getState().setLanguage("it");
+    expect(useLanguageStore.getState().language).toBe("it");
+    expect(localStorage.getItem("nexus-language")).toBe("it");
+    expect(document.documentElement.lang).toBe("it");
+    expect(document.documentElement.dir).toBe("ltr");
+  });
+
   it("SUPPORTED_LANGUAGES marks Arabic as RTL", () => {
     const ar = SUPPORTED_LANGUAGES.find((l) => l.code === "ar");
     expect(ar?.dir).toBe("rtl");
