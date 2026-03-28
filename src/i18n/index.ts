@@ -9,12 +9,14 @@ import pt from "./locales/pt.json";
 import ja from "./locales/ja.json";
 import zh from "./locales/zh.json";
 import ar from "./locales/ar.json";
+import it from "./locales/it.json";
 
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English", dir: "ltr" },
   { code: "es", label: "Español", dir: "ltr" },
   { code: "fr", label: "Français", dir: "ltr" },
   { code: "de", label: "Deutsch", dir: "ltr" },
+  { code: "it", label: "Italiano", dir: "ltr" },
   { code: "pt", label: "Português", dir: "ltr" },
   { code: "ja", label: "日本語", dir: "ltr" },
   { code: "zh", label: "中文", dir: "ltr" },
@@ -51,6 +53,7 @@ i18n.use(initReactI18next).init({
     ja: { translation: ja },
     zh: { translation: zh },
     ar: { translation: ar },
+    it: { translation: it },
   },
   lng: getStoredLanguage(),
   fallbackLng: "en",
