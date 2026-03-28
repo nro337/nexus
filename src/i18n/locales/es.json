@@ -85,7 +85,29 @@
     "languageSubtitle": "Elige el idioma de visualización de la interfaz.",
     "theme": "Tema",
     "themeSubtitle": "Elige tu esquema de colores preferido.",
-    "themeCustom": "Personalizado"
+    "themeCustom": "Personalizado",
+    "data": {
+      "title": "Datos",
+      "subtitle": "Exporta tus datos como copia de seguridad JSON o importa un archivo previamente exportado.",
+      "export": {
+        "title": "Exportar",
+        "description": "Descarga todos tus recursos, etiquetas, notas y conexiones como un archivo JSON.",
+        "button": "Exportar",
+        "loading": "Exportando…"
+      },
+      "import": {
+        "title": "Importar",
+        "description": "Restaura desde un archivo de respaldo de Nexus. Elige cómo manejar los datos existentes.",
+        "button": "Importar",
+        "loading": "Importando…",
+        "fileInput": "Importar archivo de respaldo",
+        "merge": "Combinar (conservar datos existentes)",
+        "replace": "Reemplazar (sobrescribir todos los datos)",
+        "success": "Se importaron {{imported}} registro(s){{skipText}}.",
+        "skipText": ", se omitieron {{skipped}} duplicado(s)",
+        "importError": "Error al importar el archivo. Asegúrate de que sea un respaldo válido de Nexus (.json)."
+      }
+    }
   },
   "graph": {
     "title": "Grafo de Conocimiento",

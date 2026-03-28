@@ -85,7 +85,29 @@
     "languageSubtitle": "选择界面的显示语言。",
     "theme": "主题",
     "themeSubtitle": "选择您偏好的配色方案。",
-    "themeCustom": "自定义"
+    "themeCustom": "自定义",
+    "data": {
+      "title": "数据",
+      "subtitle": "将数据导出为 JSON 备份，或导入之前导出的文件。",
+      "export": {
+        "title": "导出",
+        "description": "将所有资源、标签、笔记和连接下载为 JSON 文件。",
+        "button": "导出",
+        "loading": "导出中…"
+      },
+      "import": {
+        "title": "导入",
+        "description": "从 Nexus 备份文件恢复。选择如何处理现有数据。",
+        "button": "导入",
+        "loading": "导入中…",
+        "fileInput": "导入备份文件",
+        "merge": "合并（保留现有数据）",
+        "replace": "替换（覆盖所有数据）",
+        "success": "已导入 {{imported}} 条记录{{skipText}}。",
+        "skipText": "，已跳过 {{skipped}} 条重复记录",
+        "importError": "导入文件失败。请确认该文件是有效的 Nexus 备份（.json）。"
+      }
+    }
   },
   "graph": {
     "title": "知识图谱",
