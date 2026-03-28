@@ -85,7 +85,29 @@
     "languageSubtitle": "Choose the display language for the interface.",
     "theme": "Theme",
     "themeSubtitle": "Choose your preferred color scheme.",
-    "themeCustom": "Custom"
+    "themeCustom": "Custom",
+    "data": {
+      "title": "Data",
+      "subtitle": "Export your data as a JSON backup or import a previously exported file.",
+      "export": {
+        "title": "Export",
+        "description": "Download all your resources, tags, notes and connections as a JSON file.",
+        "button": "Export",
+        "loading": "Exporting…"
+      },
+      "import": {
+        "title": "Import",
+        "description": "Restore from a Nexus backup file. Choose how to handle existing data.",
+        "button": "Import",
+        "loading": "Importing…",
+        "fileInput": "Import backup file",
+        "merge": "Merge (keep existing data)",
+        "replace": "Replace (overwrite all data)",
+        "success": "Imported {{imported}} record(s){{skipText}}.",
+        "skipText": ", skipped {{skipped}} duplicate(s)",
+        "importError": "Failed to import file. Make sure it is a valid Nexus backup (.json)."
+      }
+    }
   },
   "graph": {
     "title": "Knowledge Graph",
