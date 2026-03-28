@@ -85,29 +85,7 @@
     "languageSubtitle": "Escolha o idioma de exibição da interface.",
     "theme": "Tema",
     "themeSubtitle": "Escolha seu esquema de cores preferido.",
-    "themeCustom": "Personalizado",
-    "data": {
-      "title": "Dados",
-      "subtitle": "Exporte seus dados como backup JSON ou importe um arquivo exportado anteriormente.",
-      "export": {
-        "title": "Exportar",
-        "description": "Baixe todos os seus recursos, etiquetas, notas e conexões como um arquivo JSON.",
-        "button": "Exportar",
-        "loading": "Exportando…"
-      },
-      "import": {
-        "title": "Importar",
-        "description": "Restaure a partir de um arquivo de backup do Nexus. Escolha como lidar com os dados existentes.",
-        "button": "Importar",
-        "loading": "Importando…",
-        "fileInput": "Importar arquivo de backup",
-        "merge": "Mesclar (manter dados existentes)",
-        "replace": "Substituir (sobrescrever todos os dados)",
-        "success": "{{imported}} registro(s) importado(s){{skipText}}.",
-        "skipText": ", {{skipped}} duplicado(s) ignorado(s)",
-        "importError": "Falha ao importar arquivo. Certifique-se de que é um backup Nexus válido (.json)."
-      }
-    }
+    "themeCustom": "Personalizado"
   },
   "graph": {
     "title": "Grafo de Conhecimento",

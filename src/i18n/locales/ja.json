@@ -85,29 +85,7 @@
     "languageSubtitle": "インターフェースの表示言語を選択します。",
     "theme": "テーマ",
     "themeSubtitle": "お好みのカラースキームを選択します。",
-    "themeCustom": "カスタム",
-    "data": {
-      "title": "データ",
-      "subtitle": "データをJSONバックアップとしてエクスポートするか、以前にエクスポートしたファイルをインポートします。",
-      "export": {
-        "title": "エクスポート",
-        "description": "すべてのリソース、タグ、ノート、接続をJSONファイルとしてダウンロードします。",
-        "button": "エクスポート",
-        "loading": "エクスポート中…"
-      },
-      "import": {
-        "title": "インポート",
-        "description": "Nexusのバックアップファイルから復元します。既存データの扱い方を選択してください。",
-        "button": "インポート",
-        "loading": "インポート中…",
-        "fileInput": "バックアップファイルをインポート",
-        "merge": "マージ（既存データを保持）",
-        "replace": "置換（すべてのデータを上書き）",
-        "success": "{{imported}} 件をインポートしました{{skipText}}。",
-        "skipText": "、{{skipped}} 件の重複をスキップ",
-        "importError": "ファイルのインポートに失敗しました。有効なNexusバックアップ（.json）であることを確認してください。"
-      }
-    }
+    "themeCustom": "カスタム"
   },
   "graph": {
     "title": "知識グラフ",

@@ -85,29 +85,7 @@
     "languageSubtitle": "Wählen Sie die Anzeigesprache der Benutzeroberfläche.",
     "theme": "Design",
     "themeSubtitle": "Wählen Sie Ihr bevorzugtes Farbschema.",
-    "themeCustom": "Benutzerdefiniert",
-    "data": {
-      "title": "Daten",
-      "subtitle": "Exportieren Sie Ihre Daten als JSON-Backup oder importieren Sie eine zuvor exportierte Datei.",
-      "export": {
-        "title": "Exportieren",
-        "description": "Laden Sie alle Ressourcen, Tags, Notizen und Verbindungen als JSON-Datei herunter.",
-        "button": "Exportieren",
-        "loading": "Exportieren…"
-      },
-      "import": {
-        "title": "Importieren",
-        "description": "Stellen Sie aus einer Nexus-Backup-Datei wieder her. Wählen Sie, wie vorhandene Daten behandelt werden sollen.",
-        "button": "Importieren",
-        "loading": "Importieren…",
-        "fileInput": "Backup-Datei importieren",
-        "merge": "Zusammenführen (vorhandene Daten behalten)",
-        "replace": "Ersetzen (alle Daten überschreiben)",
-        "success": "{{imported}} Datensatz/-sätze importiert{{skipText}}.",
-        "skipText": ", {{skipped}} Duplikat/-e übersprungen",
-        "importError": "Datei konnte nicht importiert werden. Stellen Sie sicher, dass es sich um ein gültiges Nexus-Backup (.json) handelt."
-      }
-    }
+    "themeCustom": "Benutzerdefiniert"
   },
   "graph": {
     "title": "Wissensgraph",

@@ -85,29 +85,7 @@
     "languageSubtitle": "Scegli la lingua di visualizzazione dell'interfaccia.",
     "theme": "Tema",
     "themeSubtitle": "Scegli la combinazione di colori preferita.",
-    "themeCustom": "Personalizzato",
-    "data": {
-      "title": "Dati",
-      "subtitle": "Esporta i tuoi dati come backup JSON o importa un file esportato in precedenza.",
-      "export": {
-        "title": "Esporta",
-        "description": "Scarica tutte le tue risorse, etichette, note e connessioni come file JSON.",
-        "button": "Esporta",
-        "loading": "Esportazione…"
-      },
-      "import": {
-        "title": "Importa",
-        "description": "Ripristina da un file di backup Nexus. Scegli come gestire i dati esistenti.",
-        "button": "Importa",
-        "loading": "Importazione…",
-        "fileInput": "Importa file di backup",
-        "merge": "Unisci (mantieni i dati esistenti)",
-        "replace": "Sostituisci (sovrascrivi tutti i dati)",
-        "success": "Importati {{imported}} record{{skipText}}.",
-        "skipText": ", saltati {{skipped}} duplicati",
-        "importError": "Importazione del file non riuscita. Assicurati che sia un backup Nexus valido (.json)."
-      }
-    }
+    "themeCustom": "Personalizzato"
   },
   "graph": {
     "title": "Grafo della Conoscenza",
