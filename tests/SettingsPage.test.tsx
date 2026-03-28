@@ -4,7 +4,7 @@ import { SettingsPage } from "../src/pages/SettingsPage";
 
 // Mock dexie-react-hooks so useLiveQuery returns an empty tag list
 vi.mock("dexie-react-hooks", () => ({
-  useLiveQuery: (_fn: () => unknown) => [],
+  useLiveQuery: () => [],
 }));
 
 // Mock the db module
