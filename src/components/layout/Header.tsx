@@ -68,20 +68,23 @@ export function Header({ onQuickCapture, currentPage }: HeaderProps) {
         </button>
 
         {/* Language selector */}
-        <select
-          value={language}
-          onChange={(e) => setLanguage(e.target.value as typeof language)}
-          aria-label={t("header.languageSelector")}
-          title={t("header.languageSelector")}
-          className="nexus-btn nexus-btn-ghost text-sm"
-          style={{ cursor: "pointer" }}
-        >
-          {SUPPORTED_LANGUAGES.map((lang) => (
-            <option key={lang.code} value={lang.code}>
-              {lang.label}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as typeof language)}
+            aria-label={t("header.languageSelector")}
+            title={t("header.languageSelector")}
+            className="nexus-btn nexus-btn-ghost text-sm appearance-none pr-6"
+            style={{ cursor: "pointer" }}
+          >
+            {SUPPORTED_LANGUAGES.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+          <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-2xl" style={{ color: "var(--color-nexus-text-muted)" }}>▾</span>
+        </div>
 
         {/* Theme toggle */}
         <button
