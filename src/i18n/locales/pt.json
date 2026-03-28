@@ -84,7 +84,8 @@
     "language": "Idioma",
     "languageSubtitle": "Escolha o idioma de exibição da interface.",
     "theme": "Tema",
-    "themeSubtitle": "Escolha seu esquema de cores preferido."
+    "themeSubtitle": "Escolha seu esquema de cores preferido.",
+    "themeCustom": "Personalizado"
   },
   "graph": {
     "title": "Grafo de Conhecimento",

@@ -84,7 +84,8 @@
     "language": "Langue",
     "languageSubtitle": "Choisissez la langue d'affichage de l'interface.",
     "theme": "Thème",
-    "themeSubtitle": "Choisissez votre schéma de couleurs préféré."
+    "themeSubtitle": "Choisissez votre schéma de couleurs préféré.",
+    "themeCustom": "Personnalisé"
   },
   "graph": {
     "title": "Graphe de Connaissances",
