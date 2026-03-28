@@ -1,4 +1,5 @@
 import { useEffect, useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ForceGraph2D from "react-force-graph-2d";
 import { useGraphStore } from "../store/useGraphStore";
 import { useThemeStore } from "../store/useThemeStore";
@@ -8,6 +9,7 @@ type FGLink = { source: string; target: string };
 type FGGraphData = { nodes: FGNode[]; links: FGLink[] };
 
 export function GraphPage() {
+  const { t } = useTranslation();
   const { graphData, loading, loadGraph, selectNode, selectedNodeId } = useGraphStore();
   const { theme } = useThemeStore();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,7 +39,7 @@ export function GraphPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <p style={{ color: "var(--color-nexus-text-muted)" }}>Loading graph...</p>
+        <p style={{ color: "var(--color-nexus-text-muted)" }}>{t("graph.loading")}</p>
       </div>
     );
   }
@@ -46,7 +48,7 @@ export function GraphPage() {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-3">
         <p className="text-sm" style={{ color: "var(--color-nexus-text-muted)" }}>
-          No resources to visualize yet. Add some resources and connections first!
+          {t("graph.noDataHint")}
         </p>
       </div>
     );
@@ -87,15 +89,15 @@ export function GraphPage() {
         style={{ background: "var(--color-nexus-surface)", borderColor: "var(--color-nexus-border)" }}
       >
         {[
-          { label: "Link", color: "var(--color-type-link)" },
-          { label: "Snippet", color: "var(--color-type-snippet)" },
-          { label: "Image", color: "var(--color-type-image)" },
-          { label: "Note", color: "var(--color-type-note)" },
-          { label: "File", color: "var(--color-type-file)" },
-        ].map(({ label, color }) => (
-          <div key={label} className="flex items-center gap-1.5">
+          { typeKey: "link" as const, color: "var(--color-type-link)" },
+          { typeKey: "snippet" as const, color: "var(--color-type-snippet)" },
+          { typeKey: "image" as const, color: "var(--color-type-image)" },
+          { typeKey: "note" as const, color: "var(--color-type-note)" },
+          { typeKey: "file" as const, color: "var(--color-type-file)" },
+        ].map(({ typeKey, color }) => (
+          <div key={typeKey} className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full" style={{ background: color }} />
-            <span style={{ color: "var(--color-nexus-text-muted)" }}>{label}</span>
+            <span style={{ color: "var(--color-nexus-text-muted)" }}>{t(`resourceTypes.${typeKey}`)}</span>
           </div>
         ))}
       </div>

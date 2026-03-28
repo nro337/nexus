@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "resources": "Ressourcen",
+    "graph": "Graph",
+    "capture": "Erfassen",
+    "settings": "Einstellungen"
+  },
+  "header": {
+    "searchPlaceholder": "Ressourcen suchen...",
+    "captureButton": "Erfassen",
+    "switchToLight": "Zum hellen Modus wechseln",
+    "switchToDark": "Zum dunklen Modus wechseln",
+    "languageSelector": "Sprache auswählen"
+  },
+  "sidebar": {
+    "quickCapture": "Schnellerfassung:"
+  },
+  "dashboard": {
+    "welcome": "Willkommen bei Nexus",
+    "subtitle": "Ihr persönlicher Wissensgraph. Erfassen, verbinden und entdecken.",
+    "stats": {
+      "resources": "Ressourcen",
+      "tags": "Tags",
+      "connections": "Verbindungen",
+      "notes": "Notizen"
+    },
+    "recentlyAdded": "Kürzlich hinzugefügt",
+    "viewAll": "Alle anzeigen →",
+    "nothingYet": "Noch nichts hier",
+    "captureFirst": "Erfassen Sie Ihre erste Ressource"
+  },
+  "resources": {
+    "title": "Ressourcen",
+    "noResources": "Noch keine Ressourcen",
+    "noResourcesHint": "Beginnen Sie mit der Erfassung von Ressourcen, um sie hier zu sehen.",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "archive": "Archivieren",
+    "unarchive": "Aus Archiv holen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "deleting": "Löschen…",
+    "archiving": "Archivieren…",
+    "type": "Typ",
+    "source": "Quelle",
+    "tags": "Tags",
+    "allTypes": "Alle Typen",
+    "allSources": "Alle Quellen",
+    "clearFilters": "Filter löschen",
+    "showArchived": "Archivierte anzeigen",
+    "hideArchived": "Archivierte ausblenden",
+    "showMore": "Mehr anzeigen",
+    "showLess": "Weniger anzeigen",
+    "countOne": "{{count}} Ressource",
+    "countMany": "{{count}} Ressourcen",
+    "loading": "Wird geladen..."
+  },
+  "capture": {
+    "title": "Ressource Erfassen",
+    "subtitle": "Speichern Sie einen Link, Ausschnitt oder eine Notiz in Ihrem Wissensgraphen.",
+    "url": "URL",
+    "urlPlaceholder": "https://...",
+    "fetchingMeta": "wird abgerufen...",
+    "titleLabel": "Titel",
+    "titlePlaceholder": "Ressourcentitel",
+    "contentLabel": "Inhalt / Notizen",
+    "contentPlaceholder": "Fügen Sie Notizen, Zusammenfassungen oder Inhalte ein...",
+    "typeLabel": "Typ",
+    "sourceLabel": "Quelle",
+    "tagsLabel": "Tags",
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "cancel": "Abbrechen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "subtitle": "Verwalten Sie Ihre Tags und Einstellungen.",
+    "tags": "Tags",
+    "noTags": "Noch keine Tags. Erstellen Sie Tags beim Erfassen von Ressourcen.",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "deleting": "Löschen…",
+    "language": "Sprache",
+    "languageSubtitle": "Wählen Sie die Anzeigesprache der Benutzeroberfläche.",
+    "theme": "Design",
+    "themeSubtitle": "Wählen Sie Ihr bevorzugtes Farbschema.",
+    "themeCustom": "Benutzerdefiniert"
+  },
+  "graph": {
+    "title": "Wissensgraph",
+    "noData": "Noch keine Verbindungen",
+    "noDataHint": "Fügen Sie Ressourcen hinzu und erstellen Sie Verbindungen, um Ihren Wissensgraphen zu sehen.",
+    "nodes": "Knoten",
+    "edges": "Kanten",
+    "loading": "Graph wird geladen..."
+  },
+  "search": {
+    "results": "Suchergebnisse",
+    "noResults": "Keine Ergebnisse für",
+    "noResultsHint": "Versuchen Sie einen anderen Suchbegriff.",
+    "resultsCount": "{{count}} Ergebnis",
+    "resultsCount_plural": "{{count}} Ergebnisse",
+    "searching": "Suche läuft..."
+  },
+  "modal": {
+    "close": "Schließen",
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "deleting": "Löschen…",
+    "confirm": "Bestätigen",
+    "editResource": "Ressource bearbeiten"
+  },
+  "errors": {
+    "deleteTag": "Tag \"{{name}}\" konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
+    "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  },
+  "resourceTypes": {
+    "link": "Link",
+    "snippet": "Ausschnitt",
+    "image": "Bild",
+    "note": "Notiz",
+    "file": "Datei"
+  },
+  "sources": {
+    "web": "Web",
+    "reddit": "Reddit",
+    "twitter": "Twitter/X",
+    "bluesky": "Bluesky",
+    "notion": "Notion",
+    "youtube": "YouTube",
+    "github": "GitHub",
+    "manual": "Manuell",
+    "other": "Sonstiges"
+  },
+  "connectionTypes": {
+    "related_to": "Verwandt mit",
+    "builds_on": "Aufbauend auf",
+    "contradicts": "Widerspricht",
+    "source_for": "Quelle für",
+    "inspired_by": "Inspiriert von",
+    "part_of": "Teil von",
+    "custom": "Benutzerdefiniert"
+  }
+}

@@ -24,6 +24,25 @@ vi.mock("../src/components/settings/TagEditModal", () => ({
   TagEditModal: () => null,
 }));
 
+vi.mock("../src/components/settings/CustomThemeModal", () => ({
+  CustomThemeModal: () => null,
+}));
+
+vi.mock("../src/store/useLanguageStore", () => ({
+  useLanguageStore: () => ({
+    language: "en",
+    setLanguage: vi.fn(),
+  }),
+}));
+
+vi.mock("../src/store/useThemeStore", () => ({
+  PREDEFINED_THEMES: [],
+  useThemeStore: () => ({
+    theme: "dark",
+    setTheme: vi.fn(),
+  }),
+}));
+
 // Mock export functions
 const mockExportDatabase = vi.fn().mockResolvedValue({ version: 1, exportedAt: new Date().toISOString(), resources: [], tags: [], resourceTags: [], notes: [], connections: [] });
 const mockDownloadExport = vi.fn();
@@ -94,8 +113,7 @@ describe("SettingsPage – Data section", () => {
 
     await waitFor(() => {
       expect(mockImportDatabase).toHaveBeenCalledTimes(1);
-      expect(screen.getByText(/imported 3 records/i)).toBeInTheDocument();
-      expect(screen.getByText(/skipped 1 duplicate/i)).toBeInTheDocument();
+      expect(screen.getByText(/imported 3 record\(s\), skipped 1 duplicate\(s\)\./i)).toBeInTheDocument();
     });
   });
 
@@ -110,7 +128,9 @@ describe("SettingsPage – Data section", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText(/failed to import file/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/failed to import file|settings\.data\.import\.importError/i)
+      ).toBeInTheDocument();
     });
   });
 
@@ -140,6 +160,33 @@ describe("SettingsPage – Data section", () => {
 
     await waitFor(() => {
       expect(mockImportDatabase).toHaveBeenCalledWith(expect.any(Object), "replace");
+    });
+  });
+
+  it("shows success message without skipped text when no duplicates are skipped", async () => {
+    mockImportDatabase.mockResolvedValueOnce({ imported: 2, skipped: 0 });
+    render(<SettingsPage />);
+
+    const validBackup = JSON.stringify({
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      resources: [],
+      tags: [],
+      resourceTags: [],
+      notes: [],
+      connections: [],
+    });
+
+    const file = new File([validBackup], "nexus-backup.json", { type: "application/json" });
+    const fileInput = screen.getByLabelText(/import backup file/i) as HTMLInputElement;
+
+    await act(async () => {
+      fireEvent.change(fileInput, { target: { files: [file] } });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(/imported 2 record\(s\)\./i)).toBeInTheDocument();
+      expect(screen.queryByText(/skipped/i)).not.toBeInTheDocument();
     });
   });
 });

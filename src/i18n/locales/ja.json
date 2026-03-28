@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "resources": "リソース",
+    "graph": "グラフ",
+    "capture": "キャプチャ",
+    "settings": "設定"
+  },
+  "header": {
+    "searchPlaceholder": "リソースを検索...",
+    "captureButton": "キャプチャ",
+    "switchToLight": "ライトモードに切り替え",
+    "switchToDark": "ダークモードに切り替え",
+    "languageSelector": "言語を選択"
+  },
+  "sidebar": {
+    "quickCapture": "クイックキャプチャ:"
+  },
+  "dashboard": {
+    "welcome": "Nexusへようこそ",
+    "subtitle": "あなたの個人的な知識グラフ。キャプチャ、接続、発見。",
+    "stats": {
+      "resources": "リソース",
+      "tags": "タグ",
+      "connections": "接続",
+      "notes": "ノート"
+    },
+    "recentlyAdded": "最近追加",
+    "viewAll": "すべて表示 →",
+    "nothingYet": "まだ何もありません",
+    "captureFirst": "最初のリソースをキャプチャ"
+  },
+  "resources": {
+    "title": "リソース",
+    "noResources": "リソースはまだありません",
+    "noResourcesHint": "リソースのキャプチャを開始するとここに表示されます。",
+    "filter": "フィルター",
+    "sort": "並べ替え",
+    "archive": "アーカイブ",
+    "unarchive": "アーカイブ解除",
+    "delete": "削除",
+    "edit": "編集",
+    "deleting": "削除中…",
+    "archiving": "アーカイブ中…",
+    "type": "タイプ",
+    "source": "ソース",
+    "tags": "タグ",
+    "allTypes": "すべてのタイプ",
+    "allSources": "すべてのソース",
+    "clearFilters": "フィルターをクリア",
+    "showArchived": "アーカイブを表示",
+    "hideArchived": "アーカイブを非表示",
+    "showMore": "もっと見る",
+    "showLess": "折りたたむ",
+    "countOne": "{{count}} 件のリソース",
+    "countMany": "{{count}} 件のリソース",
+    "loading": "読み込み中..."
+  },
+  "capture": {
+    "title": "リソースをキャプチャ",
+    "subtitle": "リンク、スニペット、またはノートを知識グラフに保存します。",
+    "url": "URL",
+    "urlPlaceholder": "https://...",
+    "fetchingMeta": "取得中...",
+    "titleLabel": "タイトル",
+    "titlePlaceholder": "リソースのタイトル",
+    "contentLabel": "コンテンツ / ノート",
+    "contentPlaceholder": "ノート、要約を追加するかコンテンツを貼り付け...",
+    "typeLabel": "タイプ",
+    "sourceLabel": "ソース",
+    "tagsLabel": "タグ",
+    "save": "保存",
+    "saving": "保存中…",
+    "cancel": "キャンセル"
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "タグと設定を管理します。",
+    "tags": "タグ",
+    "noTags": "タグはまだありません。リソースをキャプチャするときにタグを作成します。",
+    "edit": "編集",
+    "delete": "削除",
+    "deleting": "削除中…",
+    "language": "言語",
+    "languageSubtitle": "インターフェースの表示言語を選択します。",
+    "theme": "テーマ",
+    "themeSubtitle": "お好みのカラースキームを選択します。",
+    "themeCustom": "カスタム"
+  },
+  "graph": {
+    "title": "知識グラフ",
+    "noData": "接続はまだありません",
+    "noDataHint": "リソースを追加して接続を作成すると、知識グラフが表示されます。",
+    "nodes": "ノード",
+    "edges": "エッジ",
+    "loading": "グラフを読み込み中..."
+  },
+  "search": {
+    "results": "検索結果",
+    "noResults": "結果なし:",
+    "noResultsHint": "別の検索語を試してください。",
+    "resultsCount": "{{count}}件の結果",
+    "resultsCount_plural": "{{count}}件の結果",
+    "searching": "検索中..."
+  },
+  "modal": {
+    "close": "閉じる",
+    "save": "保存",
+    "saving": "保存中…",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "deleting": "削除中…",
+    "confirm": "確認",
+    "editResource": "リソースを編集"
+  },
+  "errors": {
+    "deleteTag": "タグ「{{name}}」の削除に失敗しました。もう一度お試しください。",
+    "generic": "エラーが発生しました。もう一度お試しください。"
+  },
+  "resourceTypes": {
+    "link": "リンク",
+    "snippet": "スニペット",
+    "image": "画像",
+    "note": "ノート",
+    "file": "ファイル"
+  },
+  "sources": {
+    "web": "ウェブ",
+    "reddit": "Reddit",
+    "twitter": "Twitter/X",
+    "bluesky": "Bluesky",
+    "notion": "Notion",
+    "youtube": "YouTube",
+    "github": "GitHub",
+    "manual": "手動",
+    "other": "その他"
+  },
+  "connectionTypes": {
+    "related_to": "関連する",
+    "builds_on": "基づく",
+    "contradicts": "矛盾する",
+    "source_for": "ソース",
+    "inspired_by": "インスピレーション",
+    "part_of": "一部",
+    "custom": "カスタム"
+  }
+}

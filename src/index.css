@@ -33,6 +33,54 @@ html.light {
   --color-nexus-danger: #e53e3e;
 }
 
+html.forest {
+  --color-nexus-bg: #0b1209;
+  --color-nexus-surface: #111f0e;
+  --color-nexus-surface-hover: #1f3319;
+  --color-nexus-border: #2d4725;
+  --color-nexus-text: #d4e8cc;
+  --color-nexus-accent: #4caf6c;
+  --color-nexus-accent-hover: #6eca8a;
+  --color-nexus-text-muted: #7aaa6e;
+  --color-nexus-danger: #f46c6c;
+}
+
+html.ocean {
+  --color-nexus-bg: #090e16;
+  --color-nexus-surface: #0e1929;
+  --color-nexus-surface-hover: #162437;
+  --color-nexus-border: #1e3045;
+  --color-nexus-text: #c8e0f5;
+  --color-nexus-accent: #38aadc;
+  --color-nexus-accent-hover: #5ac5f5;
+  --color-nexus-text-muted: #6a92b8;
+  --color-nexus-danger: #f46c6c;
+}
+
+html.sunset {
+  --color-nexus-bg: #100d08;
+  --color-nexus-surface: #1c1509;
+  --color-nexus-surface-hover: #271d11;
+  --color-nexus-border: #3a2812;
+  --color-nexus-text: #f0dcc8;
+  --color-nexus-accent: #ef8c38;
+  --color-nexus-accent-hover: #ffaa5a;
+  --color-nexus-text-muted: #a08060;
+  --color-nexus-danger: #f46c6c;
+}
+
+html.lavender {
+  --color-nexus-bg: #f2f0ff;
+  --color-nexus-surface: #faf9ff;
+  --color-nexus-surface-hover: #e8e4ff;
+  --color-nexus-border: #d4cef5;
+  --color-nexus-text: #28204a;
+  --color-nexus-accent: #7c5cef;
+  --color-nexus-accent-hover: #6448d6;
+  --color-nexus-text-muted: #6b62a0;
+  --color-nexus-danger: #e53e3e;
+}
+
 @layer base {
   body {
     background-color: var(--color-nexus-bg);

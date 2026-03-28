@@ -1,16 +1,25 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/schema";
 import { deleteTag } from "../db/tags";
 import { exportDatabase, downloadExport, importDatabase } from "../db/export";
 import { TagEditModal } from "../components/settings/TagEditModal";
+import { CustomThemeModal } from "../components/settings/CustomThemeModal";
+import { useLanguageStore } from "../store/useLanguageStore";
+import { useThemeStore, PREDEFINED_THEMES } from "../store/useThemeStore";
+import { SUPPORTED_LANGUAGES } from "../i18n";
 import type { Tag } from "../types";
 
 export function SettingsPage() {
+  const { t } = useTranslation();
   const tags = useLiveQuery(() => db.tags.orderBy("name").toArray(), []) ?? [];
   const [editingTag, setEditingTag] = useState<Tag | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [showCustomModal, setShowCustomModal] = useState(false);
+  const { language, setLanguage } = useLanguageStore();
+  const { theme, setTheme } = useThemeStore();
 
   // Export / Import state
   const [exportLoading, setExportLoading] = useState(false);
@@ -45,7 +54,7 @@ export function SettingsPage() {
       setImportResult(result);
     } catch (err) {
       console.error("Import failed:", err);
-      setImportError("Failed to import file. Make sure it is a valid Nexus backup (.json).");
+      setImportError(t("settings.data.import.importError"));
     } finally {
       setImportLoading(false);
       // Reset the file input so the same file can be re-imported
@@ -59,7 +68,7 @@ export function SettingsPage() {
     try {
       await deleteTag(tag.id);
     } catch {
-      setDeleteError(`Failed to delete tag "${tag.name}". Please try again.`);
+      setDeleteError(t("errors.deleteTag", { name: tag.name }));
     } finally {
       setDeletingId(null);
     }
@@ -69,17 +78,139 @@ export function SettingsPage() {
     <div className="max-w-2xl">
       <div className="mb-8">
         <h2 className="text-2xl font-semibold tracking-tight" style={{ color: "var(--color-nexus-text)" }}>
-          Settings
+          {t("settings.title")}
         </h2>
         <p className="text-sm mt-1" style={{ color: "var(--color-nexus-text-muted)" }}>
-          Manage your tags and preferences.
+          {t("settings.subtitle")}
         </p>
       </div>
+
+      {/* Language section */}
+      <section className="mb-8">
+        <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--color-nexus-text)" }}>
+          {t("settings.language")}
+        </h3>
+        <p className="text-xs mb-3" style={{ color: "var(--color-nexus-text-muted)" }}>
+          {t("settings.languageSubtitle")}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {SUPPORTED_LANGUAGES.map((lang) => {
+            const isActive = language === lang.code;
+            return (
+              <button
+                key={lang.code}
+                onClick={() => setLanguage(lang.code)}
+                lang={lang.code}
+                className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 border"
+                style={{
+                  background: isActive ? "rgba(108, 140, 255, 0.12)" : "transparent",
+                  borderColor: isActive ? "var(--color-nexus-accent)" : "var(--color-nexus-border)",
+                  color: isActive ? "var(--color-nexus-accent)" : "var(--color-nexus-text-muted)",
+                }}
+              >
+                {lang.label}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Theme section */}
+      <section className="mb-8">
+        <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--color-nexus-text)" }}>
+          {t("settings.theme")}
+        </h3>
+        <p className="text-xs mb-3" style={{ color: "var(--color-nexus-text-muted)" }}>
+          {t("settings.themeSubtitle")}
+        </p>
+
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+          {/* Predefined themes */}
+          {PREDEFINED_THEMES.map((pt) => {
+            const isActive = theme === pt.id;
+            return (
+              <button
+                key={pt.id}
+                onClick={() => setTheme(pt.id)}
+                className="flex flex-col items-center gap-2 rounded-xl border p-2 transition-all duration-150"
+                style={{
+                  borderColor: isActive ? "var(--color-nexus-accent)" : "var(--color-nexus-border)",
+                  background: isActive
+                    ? "color-mix(in srgb, var(--color-nexus-accent) 8%, transparent)"
+                    : "transparent",
+                  boxShadow: isActive ? "0 0 0 1px var(--color-nexus-accent)" : "none",
+                }}
+                aria-label={pt.label}
+                aria-pressed={isActive}
+              >
+                {/* Color swatch preview */}
+                <div
+                  className="w-full h-10 rounded-lg overflow-hidden flex"
+                  style={{ background: pt.preview.bg }}
+                >
+                  {/* Surface strip */}
+                  <div
+                    className="w-1/2 h-full"
+                    style={{ background: pt.preview.surface }}
+                  />
+                  {/* Accent dot */}
+                  <div className="flex-1 flex items-center justify-center">
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ background: pt.preview.accent }}
+                    />
+                  </div>
+                </div>
+                <span
+                  className="text-xs font-medium"
+                  style={{
+                    color: isActive ? "var(--color-nexus-accent)" : "var(--color-nexus-text-muted)",
+                  }}
+                >
+                  {pt.label}
+                </span>
+              </button>
+            );
+          })}
+
+          {/* Custom theme button */}
+          <button
+            onClick={() => setShowCustomModal(true)}
+            className="flex flex-col items-center gap-2 rounded-xl border p-2 transition-all duration-150"
+            style={{
+              borderColor: theme === "custom" ? "var(--color-nexus-accent)" : "var(--color-nexus-border)",
+              background: theme === "custom"
+                ? "color-mix(in srgb, var(--color-nexus-accent) 8%, transparent)"
+                : "transparent",
+              boxShadow: theme === "custom" ? "0 0 0 1px var(--color-nexus-accent)" : "none",
+            }}
+            aria-label={t("settings.themeCustom")}
+            aria-pressed={theme === "custom"}
+          >
+            {/* Rainbow / gradient preview */}
+            <div
+              className="w-full h-10 rounded-lg"
+              style={{
+                background:
+                  "linear-gradient(135deg, #6c8cff 0%, #f46c6c 33%, #4caf6c 66%, #ef8c38 100%)",
+              }}
+            />
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: theme === "custom" ? "var(--color-nexus-accent)" : "var(--color-nexus-text-muted)",
+              }}
+            >
+              {t("settings.themeCustom")}
+            </span>
+          </button>
+        </div>
+      </section>
 
       {/* Tags section */}
       <section>
         <h3 className="text-sm font-semibold mb-3" style={{ color: "var(--color-nexus-text)" }}>
-          Tags
+          {t("settings.tags")}
         </h3>
 
         {tags.length === 0 ? (
@@ -88,7 +219,7 @@ export function SettingsPage() {
             style={{ borderStyle: "dashed" }}
           >
             <p className="text-sm" style={{ color: "var(--color-nexus-text-muted)" }}>
-              No tags yet. Create tags when capturing resources.
+              {t("settings.noTags")}
             </p>
           </div>
         ) : (
@@ -129,7 +260,7 @@ export function SettingsPage() {
                   onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-nexus-surface-hover)")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
-                  Edit
+                  {t("settings.edit")}
                 </button>
 
                 {/* Delete button */}
@@ -146,7 +277,7 @@ export function SettingsPage() {
                   }
                   onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
-                  {deletingId === tag.id ? "Deleting…" : "Delete"}
+                  {deletingId === tag.id ? t("settings.deleting") : t("settings.delete")}
                 </button>
               </div>
             ))}
@@ -163,10 +294,10 @@ export function SettingsPage() {
       {/* Data section */}
       <section className="mt-10">
         <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--color-nexus-text)" }}>
-          Data
+          {t("settings.data.title")}
         </h3>
         <p className="text-xs mb-4" style={{ color: "var(--color-nexus-text-muted)" }}>
-          Export your data as a JSON backup or import a previously exported file.
+          {t("settings.data.subtitle")}
         </p>
 
         <div
@@ -180,10 +311,10 @@ export function SettingsPage() {
           <div className="flex items-center gap-3 px-4 py-3">
             <div className="flex-1">
               <p className="text-sm font-medium" style={{ color: "var(--color-nexus-text)" }}>
-                Export
+                {t("settings.data.export.title")}
               </p>
               <p className="text-xs mt-0.5" style={{ color: "var(--color-nexus-text-muted)" }}>
-                Download all your resources, tags, notes and connections as a JSON file.
+                {t("settings.data.export.description")}
               </p>
             </div>
             <button
@@ -196,7 +327,7 @@ export function SettingsPage() {
                 opacity: exportLoading ? 0.6 : 1,
               }}
             >
-              {exportLoading ? "Exporting…" : "Export"}
+              {exportLoading ? t("settings.data.export.loading") : t("settings.data.export.button")}
             </button>
           </div>
 
@@ -205,10 +336,10 @@ export function SettingsPage() {
             <div className="flex items-start gap-3">
               <div className="flex-1">
                 <p className="text-sm font-medium" style={{ color: "var(--color-nexus-text)" }}>
-                  Import
+                  {t("settings.data.import.title")}
                 </p>
                 <p className="text-xs mt-0.5" style={{ color: "var(--color-nexus-text-muted)" }}>
-                  Restore from a Nexus backup file. Choose how to handle existing data.
+                  {t("settings.data.import.description")}
                 </p>
               </div>
               <button
@@ -221,7 +352,7 @@ export function SettingsPage() {
                   opacity: importLoading ? 0.6 : 1,
                 }}
               >
-                {importLoading ? "Importing…" : "Import"}
+                {importLoading ? t("settings.data.import.loading") : t("settings.data.import.button")}
               </button>
               <input
                 ref={fileInputRef}
@@ -229,7 +360,7 @@ export function SettingsPage() {
                 accept=".json"
                 className="hidden"
                 onChange={handleImportFile}
-                aria-label="Import backup file"
+                aria-label={t("settings.data.import.fileInput")}
               />
             </div>
 
@@ -243,7 +374,7 @@ export function SettingsPage() {
                   checked={importMode === "merge"}
                   onChange={() => setImportMode("merge")}
                 />
-                Merge (keep existing data)
+                {t("settings.data.import.merge")}
               </label>
               <label className="flex items-center gap-1.5 cursor-pointer text-xs" style={{ color: "var(--color-nexus-text-muted)" }}>
                 <input
@@ -253,15 +384,20 @@ export function SettingsPage() {
                   checked={importMode === "replace"}
                   onChange={() => setImportMode("replace")}
                 />
-                Replace (overwrite all data)
+                {t("settings.data.import.replace")}
               </label>
             </div>
 
             {/* Import result / error feedback */}
             {importResult && (
               <p className="mt-2 text-xs" style={{ color: "var(--color-nexus-text-muted)" }}>
-                ✓ Imported {importResult.imported} record{importResult.imported !== 1 ? "s" : ""}
-                {importResult.skipped > 0 ? `, skipped ${importResult.skipped} duplicate${importResult.skipped !== 1 ? "s" : ""}` : ""}.
+                {t("settings.data.import.success", {
+                  imported: importResult.imported,
+                  skipText:
+                    importResult.skipped > 0
+                      ? t("settings.data.import.skipText", { skipped: importResult.skipped })
+                      : "",
+                })}
               </p>
             )}
             {importError && (
@@ -278,6 +414,10 @@ export function SettingsPage() {
           tag={editingTag}
           onClose={() => setEditingTag(null)}
         />
+      )}
+
+      {showCustomModal && (
+        <CustomThemeModal onClose={() => setShowCustomModal(false)} />
       )}
     </div>
   );

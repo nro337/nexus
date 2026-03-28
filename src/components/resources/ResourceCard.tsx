@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import type { Resource, Tag } from "../../types";
 import { getTagsForResource } from "../../db/tags";
 import { useResourceStore } from "../../store/useResourceStore";
-import { formatRelativeDate, RESOURCE_TYPE_LABELS, SOURCE_LABELS } from "../../lib/utils";
+import { formatRelativeDate } from "../../lib/utils";
 
 interface ResourceCardProps {
   resource: Resource;
@@ -36,6 +37,7 @@ function getYouTubeEmbedUrl(url?: string): string | undefined {
 }
 
 export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) {
+  const { t } = useTranslation();
   const [tags, setTags] = useState<Tag[]>([]);
   const [expanded, setExpanded] = useState(false);
   const [showThumbnail, setShowThumbnail] = useState(true);
@@ -79,10 +81,10 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
               className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded"
               style={{ color: typeColor, background: `color-mix(in srgb, ${typeColor} 15%, transparent)` }}
             >
-              {RESOURCE_TYPE_LABELS[resource.type]}
+              {t(`resourceTypes.${resource.type}`)}
             </span>
             <span className="text-[10px]" style={{ color: "var(--color-nexus-text-muted)" }}>
-              {SOURCE_LABELS[resource.source]}
+              {t(`sources.${resource.source}`)}
             </span>
           </div>
 
@@ -121,7 +123,7 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
               className="text-[11px] mt-0.5"
               style={{ color: "var(--color-nexus-accent)" }}
             >
-              {expanded ? "Show less" : "Show more"}
+              {expanded ? t("resources.showLess") : t("resources.showMore")}
             </button>
           )}
 
@@ -150,7 +152,7 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
               style={{ color: "var(--color-nexus-text-muted)" }}
               onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
               onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-              title="Edit"
+              title={t("resources.edit")}
             >
               ✎
             </button>
@@ -161,7 +163,7 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
                 style={{ color: "var(--color-nexus-text-muted)" }}
                 onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
                 onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-                title="Unarchive"
+                title={t("resources.unarchive")}
               >
                 ▲
               </button>
@@ -172,7 +174,7 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
                 style={{ color: "var(--color-nexus-text-muted)" }}
                 onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
                 onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-                title="Archive"
+                title={t("resources.archive")}
               >
                 ▼
               </button>
@@ -183,7 +185,7 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
               style={{ color: "var(--color-nexus-danger)" }}
               onMouseEnter={(e) => e.currentTarget.style.background = "rgba(244,108,108,0.1)"}
               onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-              title="Delete"
+              title={t("resources.delete")}
             >
               ✕
             </button>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/schema";
 import { useSearchStore } from "../store/useSearchStore";
@@ -13,6 +14,7 @@ interface DashboardProps {
 }
 
 export function Dashboard({ onNavigate }: DashboardProps) {
+  const { t } = useTranslation();
   const { query } = useSearchStore();
   const [editingResource, setEditingResource] = useState<Resource | null>(null);
 
@@ -35,23 +37,23 @@ export function Dashboard({ onNavigate }: DashboardProps) {
       {/* Welcome */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold tracking-tight" style={{ color: "var(--color-nexus-text)" }}>
-          Welcome to Nexus
+          {t("dashboard.welcome")}
         </h2>
         <p className="text-sm mt-1" style={{ color: "var(--color-nexus-text-muted)" }}>
-          Your personal knowledge graph. Capture, connect, and discover.
+          {t("dashboard.subtitle")}
         </p>
       </div>
 
       {/* Stats grid */}
       <div className="grid grid-cols-4 gap-3 mb-8">
         {[
-          { label: "Resources", count: resourceCount, color: "var(--color-type-link)", page: "resources" as PageId },
-          { label: "Tags", count: tagCount, color: "var(--color-type-snippet)", page: "resources" as PageId },
-          { label: "Connections", count: connectionCount, color: "var(--color-type-image)", page: "graph" as PageId },
-          { label: "Notes", count: noteCount, color: "var(--color-type-note)", page: "resources" as PageId },
+          { labelKey: "dashboard.stats.resources", count: resourceCount, color: "var(--color-type-link)", page: "resources" as PageId },
+          { labelKey: "dashboard.stats.tags", count: tagCount, color: "var(--color-type-snippet)", page: "resources" as PageId },
+          { labelKey: "dashboard.stats.connections", count: connectionCount, color: "var(--color-type-image)", page: "graph" as PageId },
+          { labelKey: "dashboard.stats.notes", count: noteCount, color: "var(--color-type-note)", page: "resources" as PageId },
         ].map((stat) => (
           <button
-            key={stat.label}
+            key={stat.labelKey}
             onClick={() => onNavigate(stat.page)}
             className="nexus-card text-left"
           >
@@ -59,7 +61,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               {stat.count}
             </p>
             <p className="text-xs mt-0.5" style={{ color: "var(--color-nexus-text-muted)" }}>
-              {stat.label}
+              {t(stat.labelKey)}
             </p>
           </button>
         ))}
@@ -69,7 +71,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
       <div>
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-semibold" style={{ color: "var(--color-nexus-text)" }}>
-            Recently added
+            {t("dashboard.recentlyAdded")}
           </h3>
           {resourceCount > 5 && (
             <button
@@ -77,7 +79,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               className="text-xs"
               style={{ color: "var(--color-nexus-accent)" }}
             >
-              View all →
+              {t("dashboard.viewAll")}
             </button>
           )}
         </div>
@@ -88,13 +90,13 @@ export function Dashboard({ onNavigate }: DashboardProps) {
             style={{ borderStyle: "dashed" }}
           >
             <p className="text-sm mb-2" style={{ color: "var(--color-nexus-text-muted)" }}>
-              Nothing here yet
+              {t("dashboard.nothingYet")}
             </p>
             <button
               onClick={() => onNavigate("capture")}
               className="nexus-btn nexus-btn-primary text-sm"
             >
-              Capture your first resource
+              {t("dashboard.captureFirst")}
             </button>
           </div>
         ) : (
