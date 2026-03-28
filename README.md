@@ -16,7 +16,7 @@ A local-first browser application for collecting, organizing, and connecting inf
 - **Smart Organization** — Tag resources, filter by type/source, full-text fuzzy search
 - **Knowledge Graph** — Visualize connections between resources as an interactive force-directed graph
 - **Data Portability** — Export your entire knowledge base as JSON, commit to Git for version history
-- **Internationalization** — Full i18n support with language toggling; currently ships English, Spanish, French, German, Portuguese, Japanese, Simplified Chinese, and Arabic (RTL)
+- **Internationalization** — Full i18n support with language toggling; currently ships English, Spanish, French, German, Portuguese, Italian, Japanese, Simplified Chinese, and Arabic (RTL)
 
 ## Tech Stack
 
@@ -84,6 +84,7 @@ Nexus ships with full internationalization support powered by [i18next](https://
 | `fr` | Français       | LTR       |
 | `de` | Deutsch        | LTR       |
 | `pt` | Português      | LTR       |
+| `it` | Italiano       | LTR       |
 | `ja` | 日本語          | LTR       |
 | `zh` | 中文 (Simplified)| LTR     |
 | `ar` | العربية        | RTL       |
