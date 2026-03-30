@@ -1,6 +1,6 @@
 // ─── Enums ───────────────────────────────────────────────
 
-export type ResourceType = "link" | "snippet" | "image" | "note" | "file";
+export type ResourceType = "link" | "snippet" | "image" | "note" | "file" | "paper";
 
 export type SourcePlatform =
   | "web"
@@ -10,6 +10,8 @@ export type SourcePlatform =
   | "notion"
   | "youtube"
   | "github"
+  | "doi"
+  | "arxiv"
   | "manual"
   | "other";
 

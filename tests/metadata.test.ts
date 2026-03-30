@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { getYouTubeThumbnailUrl, extractUrlMetadata } from "../src/lib/metadata";
+import { getYouTubeThumbnailUrl, extractUrlMetadata, detectSource } from "../src/lib/metadata";
 
 function mockFetch(html: string) {
   vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, text: () => Promise.resolve(html) }));
@@ -81,5 +81,31 @@ describe("getYouTubeThumbnailUrl", () => {
 
   it("returns undefined for an invalid URL", () => {
     expect(getYouTubeThumbnailUrl("not-a-url")).toBeUndefined();
+  });
+});
+
+describe("detectSource", () => {
+  it("detects arxiv.org as arxiv", () => {
+    expect(detectSource("https://arxiv.org/abs/2301.00001")).toBe("arxiv");
+  });
+
+  it("detects doi.org as doi", () => {
+    expect(detectSource("https://doi.org/10.1038/nature12373")).toBe("doi");
+  });
+
+  it("detects dx.doi.org as doi", () => {
+    expect(detectSource("https://dx.doi.org/10.1038/nature12373")).toBe("doi");
+  });
+
+  it("detects github.com as github", () => {
+    expect(detectSource("https://github.com/org/repo")).toBe("github");
+  });
+
+  it("returns web for unrecognised domains", () => {
+    expect(detectSource("https://example.com/paper")).toBe("web");
+  });
+
+  it("returns manual for empty string", () => {
+    expect(detectSource("")).toBe("manual");
   });
 });

@@ -82,6 +82,7 @@ function getTypeColor(type: string): string {
     image: "#a78bfa",
     note: "#34d399",
     file: "#fb7185",
+    paper: "#2dd4bf",
   };
   return colors[type] || "#94a3b8";
 }
