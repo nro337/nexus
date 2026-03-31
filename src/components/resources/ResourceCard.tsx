@@ -17,6 +17,7 @@ const TYPE_COLORS: Record<string, string> = {
   image: "var(--color-type-image)",
   note: "var(--color-type-note)",
   file: "var(--color-type-file)",
+  paper: "var(--color-type-paper)",
 };
 
 function getYouTubeEmbedUrl(url?: string): string | undefined {

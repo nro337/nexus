@@ -126,6 +126,8 @@ export function detectSource(url: string): string {
   if (host.includes("notion.so") || host.includes("notion.site")) return "notion";
   if (host.includes("youtube.com") || host.includes("youtu.be")) return "youtube";
   if (host.includes("github.com")) return "github";
+  if (host === "arxiv.org" || host.endsWith(".arxiv.org")) return "arxiv";
+  if (host === "doi.org" || host.endsWith(".doi.org") || host === "dx.doi.org") return "doi";
 
   return "web";
 }

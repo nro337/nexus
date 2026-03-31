@@ -144,7 +144,8 @@
     "snippet": "Snippet",
     "image": "Image",
     "note": "Note",
-    "file": "File"
+    "file": "File",
+    "paper": "Paper"
   },
   "sources": {
     "web": "Web",
@@ -154,6 +155,8 @@
     "notion": "Notion",
     "youtube": "YouTube",
     "github": "GitHub",
+    "doi": "DOI",
+    "arxiv": "arXiv",
     "manual": "Manual",
     "other": "Other"
   },

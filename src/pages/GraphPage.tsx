@@ -94,6 +94,7 @@ export function GraphPage() {
           { typeKey: "image" as const, color: "var(--color-type-image)" },
           { typeKey: "note" as const, color: "var(--color-type-note)" },
           { typeKey: "file" as const, color: "var(--color-type-file)" },
+          { typeKey: "paper" as const, color: "var(--color-type-paper)" },
         ].map(({ typeKey, color }) => (
           <div key={typeKey} className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full" style={{ background: color }} />

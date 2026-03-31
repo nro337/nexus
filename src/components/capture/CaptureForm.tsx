@@ -71,6 +71,7 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
     { value: "image", label: t("resourceTypes.image") },
     { value: "note", label: t("resourceTypes.note") },
     { value: "file", label: t("resourceTypes.file") },
+    { value: "paper", label: t("resourceTypes.paper") },
   ];
 
   const sourceOptions: { value: SourcePlatform; label: string }[] = [
@@ -81,6 +82,8 @@ export function CaptureForm({ initialUrl, initialTitle, initialContent, onSaved 
     { value: "notion", label: t("sources.notion") },
     { value: "youtube", label: t("sources.youtube") },
     { value: "github", label: t("sources.github") },
+    { value: "doi", label: t("sources.doi") },
+    { value: "arxiv", label: t("sources.arxiv") },
     { value: "manual", label: t("sources.manual") },
     { value: "other", label: t("sources.other") },
   ];
