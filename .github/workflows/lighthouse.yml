@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   lighthouse:
@@ -44,12 +44,3 @@ jobs:
           name: lighthouse-reports
           path: lighthouse/reports/
           if-no-files-found: warn
-
-      - name: Commit badge data
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add lighthouse/badges/
-          git diff --cached --quiet || git commit -m "chore: update Lighthouse badge data [skip ci]"
-          git push origin main
