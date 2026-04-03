@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   lighthouse:
@@ -48,13 +47,9 @@ jobs:
 
       - name: Commit badge data
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          add-paths: lighthouse/badges/
-          commit-message: "chore: update Lighthouse badge data [skip ci]"
-          branch: chore/lighthouse-badge-update
-          title: "chore: update Lighthouse badge data"
-          body: "Automated Lighthouse badge update from CI run."
-          labels: "automated,lighthouse"
-          delete-branch: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add lighthouse/badges/
+          git diff --cached --quiet || git commit -m "chore: update Lighthouse badge data [skip ci]"
+          git push origin main
