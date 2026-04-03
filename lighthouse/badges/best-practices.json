@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "label": "lighthouse best practices",
-  "message": "pending",
-  "color": "lightgrey",
+  "message": "93/100",
+  "color": "brightgreen",
   "namedLogo": "lighthouse"
 }
