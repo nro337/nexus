@@ -3,10 +3,16 @@
 </p>
 
 [![CI](https://github.com/nro337/nexus/actions/workflows/ci.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/ci.yml)
+[![Lighthouse CI](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml)
 [![CodeQL](https://github.com/nro337/nexus/actions/workflows/codeql.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nro337/nexus/badge)](https://scorecard.dev/viewer/?uri=github.com/nro337/nexus)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+[![Lighthouse Performance](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/nro337/nexus/main/lighthouse/badges/performance.json)](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml)
+[![Lighthouse Accessibility](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/nro337/nexus/main/lighthouse/badges/accessibility.json)](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml)
+[![Lighthouse Best Practices](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/nro337/nexus/main/lighthouse/badges/best-practices.json)](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml)
+[![Lighthouse SEO](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/nro337/nexus/main/lighthouse/badges/seo.json)](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml)
 
 A local-first browser application for collecting, organizing, and connecting information from across the web. Runs entirely in-browser with no backend — your data stays in IndexedDB.
 
