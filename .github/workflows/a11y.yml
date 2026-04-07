@@ -1,0 +1,56 @@
+name: WCAG Accessibility Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  a11y:
+    name: WCAG Accessibility Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Serve static build
+        run: npx serve dist --listen 3000 &
+        shell: bash
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000 --timeout 30000
+
+      - name: Run WCAG scan
+        run: |
+          mkdir -p a11y
+          npx hd-a11y-scan http://localhost:3000 \
+            --ci \
+            --lang en \
+            --threshold high \
+            --junit a11y/report.xml \
+            --pdf a11y/report.pdf
+
+      - name: Upload accessibility reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-reports
+          path: a11y/
+          if-no-files-found: warn

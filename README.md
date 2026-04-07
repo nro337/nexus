@@ -4,6 +4,7 @@
 
 [![CI](https://github.com/nro337/nexus/actions/workflows/ci.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/ci.yml)
 [![Lighthouse CI](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/lighthouse.yml)
+[![WCAG Accessibility](https://github.com/nro337/nexus/actions/workflows/a11y.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/a11y.yml)
 [![CodeQL](https://github.com/nro337/nexus/actions/workflows/codeql.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nro337/nexus/badge)](https://scorecard.dev/viewer/?uri=github.com/nro337/nexus)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
