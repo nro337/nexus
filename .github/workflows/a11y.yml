@@ -44,7 +44,8 @@ jobs:
             --ci \
             --lang en \
             --threshold high \
-            --junit a11y/report.xml
+            --junit a11y/report.xml \
+            --pdf a11y/report.pdf
 
       - name: Upload accessibility reports
         if: always()
