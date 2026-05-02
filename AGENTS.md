@@ -47,3 +47,23 @@ Manifest V3 extension. `background.js` handles context-menu captures and communi
 - Archived resources are excluded from the graph and from `loadResources()` by default (`filters.archived === false`).
 - `generateId()` from `src/lib/utils.ts` (nanoid) is used everywhere for entity IDs.
 - Tailwind CSS v4 is configured via the Vite plugin (`@tailwindcss/vite`), not a `tailwind.config` file.
+
+## Fallow Work Queue
+
+The [Fallow CI workflow](.github/workflows/fallow.yml) runs static analysis on every push to `main` and weekly. When issues are found, it automatically creates GitHub issues labeled **`Fallow`** — one per findings category (dead code, duplication, complexity hotspots).
+
+Agents can discover pending work with:
+
+```bash
+gh issue list --label "Fallow" --state open
+```
+
+Each issue title maps to a specific category:
+
+| Issue title | Analysis | Local repro |
+|-------------|----------|-------------|
+| `Fallow: Dead Code Issues` | Unused exports, files, and dependencies | `npx fallow dead-code` |
+| `Fallow: Code Duplication` | Repeated logic across files | `npx fallow dupes` |
+| `Fallow: Complexity Hotspots` | High cyclomatic / cognitive complexity | `npx fallow health` |
+
+After resolving findings, close the corresponding issue so the next workflow run can re-open it only if regressions appear. Re-run the relevant analysis locally before pushing to confirm the fix.

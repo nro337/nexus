@@ -1,0 +1,223 @@
+/**
+ * Parses the Fallow JSON analysis results and creates GitHub issues for each
+ * category of findings. Issues are labeled "Fallow" so AI agents can discover
+ * and address them in parallel.
+ *
+ * Duplicate-prevention: an issue is skipped if an open issue with the same
+ * title already exists in the repository.
+ *
+ * Usage: GH_TOKEN=<token> node .github/scripts/fallow-create-issues.mjs
+ */
+
+import { readFileSync, writeFileSync, unlinkSync } from 'fs';
+import { execSync } from 'child_process';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Run a shell command and return stdout as a string. */
+function run(cmd) {
+  return execSync(cmd, { encoding: 'utf8' });
+}
+
+/** Return titles of all currently open issues tagged "Fallow". */
+function openFallowIssueTitles() {
+  try {
+    // 200 is a safe upper bound: we only ever create 3 Fallow issues (one per
+    // category), so the open count will never approach this limit.
+    const json = run('gh issue list --label "Fallow" --state open --json title --limit 200');
+    return new Set(JSON.parse(json).map((i) => i.title));
+  } catch {
+    return new Set();
+  }
+}
+
+/** Create a GitHub issue and print a confirmation. */
+function createIssue(title, body) {
+  const tempFile = join(tmpdir(), `fallow-issue-body-${Date.now()}.md`);
+  try {
+    writeFileSync(tempFile, body);
+    run(`gh issue create --title ${JSON.stringify(title)} --body-file ${tempFile} --label "Fallow"`);
+    console.log(`  ✓ Created: ${title}`);
+  } finally {
+    try { unlinkSync(tempFile); } catch { /* ignore cleanup errors */ }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Load Fallow results
+// ---------------------------------------------------------------------------
+
+let results;
+try {
+  const raw = readFileSync('fallow-results.json', 'utf8').trim();
+  if (!raw) throw new Error('empty');
+  results = JSON.parse(raw);
+} catch (err) {
+  console.log(`No valid Fallow results found (${err.message}) — skipping issue creation.`);
+  process.exit(0);
+}
+
+// Accept both top-level structures: bare "fallow" output and "fallow audit" output
+const deadCode = results.dead_code ?? results.deadCode ?? null;
+const duplication = results.duplication ?? null;
+const complexity = results.complexity ?? results.health ?? null;
+
+const openTitles = openFallowIssueTitles();
+let created = 0;
+
+// ---------------------------------------------------------------------------
+// Dead Code
+// ---------------------------------------------------------------------------
+
+const deadCodeTotal =
+  deadCode?.total_issues ??
+  deadCode?.totalIssues ??
+  (deadCode ? Object.values(deadCode).reduce((s, v) => s + (Array.isArray(v) ? v.length : 0), 0) : 0);
+
+if (deadCode && deadCodeTotal > 0) {
+  const title = 'Fallow: Dead Code Issues';
+
+  if (openTitles.has(title)) {
+    console.log(`  — Skipped (open issue already exists): ${title}`);
+  } else {
+    const unusedExports = deadCode.unused_exports ?? deadCode.unusedExports ?? [];
+    const unusedFiles = deadCode.unused_files ?? deadCode.unusedFiles ?? [];
+    const unusedDeps = deadCode.unused_dependencies ?? deadCode.unusedDependencies ?? [];
+
+    let body = `## Fallow: Dead Code Issues\n\n`;
+    body += `**Total issues**: ${deadCodeTotal}\n\n`;
+    body += `> Identified by [Fallow](https://docs.fallow.tools) static analysis. `;
+    body += `Address these findings to reduce bundle size and improve maintainability.\n\n`;
+
+    if (unusedExports.length > 0) {
+      body += `### Unused Exports (${unusedExports.length})\n\n`;
+      body += `| File | Symbol | Line |\n|------|--------|------|\n`;
+      for (const e of unusedExports.slice(0, 50)) {
+        const file = e.path ?? e.file ?? '—';
+        const symbol = e.export_name ?? e.exportName ?? e.name ?? '—';
+        const line = e.line ?? '—';
+        body += `| \`${file}\` | \`${symbol}\` | ${line} |\n`;
+      }
+      if (unusedExports.length > 50) body += `\n_…and ${unusedExports.length - 50} more._\n`;
+      body += '\n';
+    }
+
+    if (unusedFiles.length > 0) {
+      body += `### Unused Files (${unusedFiles.length})\n\n`;
+      for (const f of unusedFiles.slice(0, 30)) {
+        const file = typeof f === 'string' ? f : (f.path ?? f.file ?? JSON.stringify(f));
+        body += `- \`${file}\`\n`;
+      }
+      if (unusedFiles.length > 30) body += `\n_…and ${unusedFiles.length - 30} more._\n`;
+      body += '\n';
+    }
+
+    if (unusedDeps.length > 0) {
+      body += `### Unused Dependencies (${unusedDeps.length})\n\n`;
+      for (const d of unusedDeps.slice(0, 20)) {
+        const name = typeof d === 'string' ? d : (d.name ?? JSON.stringify(d));
+        body += `- \`${name}\`\n`;
+      }
+      body += '\n';
+    }
+
+    body += `---\n*Generated by [Fallow](https://docs.fallow.tools) — run \`npx fallow dead-code\` locally to reproduce.*\n`;
+
+    createIssue(title, body);
+    created++;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Code Duplication
+// ---------------------------------------------------------------------------
+
+const cloneGroups = duplication?.clone_groups ?? duplication?.cloneGroups ?? [];
+const dupePct = duplication?.stats?.duplication_percentage ?? duplication?.stats?.duplicationPercentage ?? 0;
+
+if (cloneGroups.length > 0) {
+  const title = 'Fallow: Code Duplication';
+
+  if (openTitles.has(title)) {
+    console.log(`  — Skipped (open issue already exists): ${title}`);
+  } else {
+    let body = `## Fallow: Code Duplication\n\n`;
+    body += `**Clone groups**: ${cloneGroups.length}`;
+    if (dupePct > 0) body += `  |  **Duplication**: ${dupePct.toFixed(1)}%`;
+    body += '\n\n';
+    body += `> Identified by [Fallow](https://docs.fallow.tools) static analysis. `;
+    body += `Consolidate these duplicate blocks to reduce maintenance burden.\n\n`;
+
+    body += `### Clone Groups\n\n`;
+    for (const group of cloneGroups.slice(0, 20)) {
+      const lines = group.lines ?? group.line_count ?? '?';
+      const instances = group.instances ?? group.files ?? [];
+      body += `**${lines} lines** — ${instances.length} instances\n`;
+      for (const inst of instances) {
+        const file = inst.path ?? inst.file ?? (typeof inst === 'string' ? inst : JSON.stringify(inst));
+        const start = inst.start_line ?? inst.startLine ?? inst.line ?? '';
+        const end = inst.end_line ?? inst.endLine ?? '';
+        const range = start ? `:${start}${end ? `-${end}` : ''}` : '';
+        body += `- \`${file}${range}\`\n`;
+      }
+      body += '\n';
+    }
+    if (cloneGroups.length > 20) body += `_…and ${cloneGroups.length - 20} more clone groups._\n\n`;
+
+    body += `---\n*Generated by [Fallow](https://docs.fallow.tools) — run \`npx fallow dupes\` locally to reproduce.*\n`;
+
+    createIssue(title, body);
+    created++;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Complexity / Health
+// ---------------------------------------------------------------------------
+
+const complexityFindings = complexity?.findings ?? complexity?.hotspots ?? [];
+
+if (complexityFindings.length > 0) {
+  const title = 'Fallow: Complexity Hotspots';
+
+  if (openTitles.has(title)) {
+    console.log(`  — Skipped (open issue already exists): ${title}`);
+  } else {
+    let body = `## Fallow: Complexity Hotspots\n\n`;
+    body += `**Findings**: ${complexityFindings.length}\n\n`;
+    body += `> Identified by [Fallow](https://docs.fallow.tools) static analysis. `;
+    body += `Refactor these functions to lower cyclomatic/cognitive complexity.\n\n`;
+
+    body += `### High-Complexity Functions\n\n`;
+    body += `| File | Function | Cyclomatic | Cognitive |\n|------|----------|------------|----------|\n`;
+    for (const f of complexityFindings.slice(0, 40)) {
+      const file = f.path ?? f.file ?? '—';
+      const fn = f.function_name ?? f.functionName ?? f.name ?? '—';
+      const line = f.line ? `:${f.line}` : '';
+      const cyclo = f.cyclomatic ?? f.cyclomatic_complexity ?? '—';
+      const cogn = f.cognitive ?? f.cognitive_complexity ?? '—';
+      body += `| \`${file}${line}\` | \`${fn}\` | ${cyclo} | ${cogn} |\n`;
+    }
+    if (complexityFindings.length > 40) body += `\n_…and ${complexityFindings.length - 40} more._\n`;
+    body += '\n';
+
+    body += `---\n*Generated by [Fallow](https://docs.fallow.tools) — run \`npx fallow health\` locally to reproduce.*\n`;
+
+    createIssue(title, body);
+    created++;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Summary
+// ---------------------------------------------------------------------------
+
+if (created === 0) {
+  console.log('No new Fallow issues to create (either no findings or all issues already open).');
+} else {
+  console.log(`\nCreated ${created} Fallow issue(s).`);
+}
