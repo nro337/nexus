@@ -31,12 +31,71 @@ export async function exportDatabase(): Promise<NexusExport> {
   };
 }
 
+async function importResources(
+  resources: Resource[],
+  counts: { imported: number; skipped: number }
+): Promise<void> {
+  for (const resource of resources) {
+    resource.createdAt = new Date(resource.createdAt);
+    resource.updatedAt = new Date(resource.updatedAt);
+    try {
+      await db.resources.add(resource);
+      counts.imported++;
+    } catch {
+      counts.skipped++; // duplicate key in merge mode
+    }
+  }
+}
+
+async function importTags(tags: Tag[]): Promise<void> {
+  for (const tag of tags) {
+    tag.createdAt = new Date(tag.createdAt);
+    try {
+      await db.tags.add(tag);
+    } catch {
+      // skip duplicate
+    }
+  }
+}
+
+async function importResourceTags(resourceTags: ResourceTag[]): Promise<void> {
+  for (const link of resourceTags) {
+    try {
+      await db.resourceTags.add(link);
+    } catch {
+      // skip duplicate
+    }
+  }
+}
+
+async function importNotes(notes: Note[]): Promise<void> {
+  for (const note of notes) {
+    note.createdAt = new Date(note.createdAt);
+    note.updatedAt = new Date(note.updatedAt);
+    try {
+      await db.notes.add(note);
+    } catch {
+      // skip duplicate
+    }
+  }
+}
+
+async function importConnections(connections: Connection[]): Promise<void> {
+  for (const conn of connections) {
+    conn.createdAt = new Date(conn.createdAt);
+    try {
+      await db.connections.add(conn);
+    } catch {
+      // skip duplicate
+    }
+  }
+}
+
 export async function importDatabase(
   data: NexusExport,
   mode: "merge" | "replace" = "merge"
 ): Promise<{ imported: number; skipped: number }> {
-  let imported = 0;
-  let skipped = 0;
+  const counts = { imported: 0, skipped: 0 };
 
   await db.transaction(
     "rw",
@@ -52,57 +111,15 @@ export async function importDatabase(
         ]);
       }
 
-      for (const resource of data.resources) {
-        // Ensure dates are Date objects (JSON parse gives strings)
-        resource.createdAt = new Date(resource.createdAt);
-        resource.updatedAt = new Date(resource.updatedAt);
-        try {
-          await db.resources.add(resource);
-          imported++;
-        } catch {
-          skipped++; // duplicate key in merge mode
-        }
-      }
-
-      for (const tag of data.tags) {
-        tag.createdAt = new Date(tag.createdAt);
-        try {
-          await db.tags.add(tag);
-        } catch {
-          // skip duplicate
-        }
-      }
-
-      for (const link of data.resourceTags) {
-        try {
-          await db.resourceTags.add(link);
-        } catch {
-          // skip duplicate
-        }
-      }
-
-      for (const note of data.notes) {
-        note.createdAt = new Date(note.createdAt);
-        note.updatedAt = new Date(note.updatedAt);
-        try {
-          await db.notes.add(note);
-        } catch {
-          // skip duplicate
-        }
-      }
-
-      for (const conn of data.connections) {
-        conn.createdAt = new Date(conn.createdAt);
-        try {
-          await db.connections.add(conn);
-        } catch {
-          // skip duplicate
-        }
-      }
+      await importResources(data.resources, counts);
+      await importTags(data.tags);
+      await importResourceTags(data.resourceTags);
+      await importNotes(data.notes);
+      await importConnections(data.connections);
     }
   );
 
-  return { imported, skipped };
+  return counts;
 }
 
 export function downloadExport(data: NexusExport): void {
