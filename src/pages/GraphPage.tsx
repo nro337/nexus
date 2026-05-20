@@ -18,12 +18,17 @@ export function GraphPage() {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => {
+
+    const updateDimensions = () => {
       setDimensions({ width: el.clientWidth, height: el.clientHeight });
-    });
+    };
+
+    updateDimensions();
+
+    const ro = new ResizeObserver(updateDimensions);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [loading, graphData.nodes.length]);
 
   useEffect(() => {
     loadGraph();
