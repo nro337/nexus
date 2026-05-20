@@ -7,6 +7,7 @@
 [![WCAG Accessibility](https://github.com/nro337/nexus/actions/workflows/a11y.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/a11y.yml)
 [![CodeQL](https://github.com/nro337/nexus/actions/workflows/codeql.yml/badge.svg)](https://github.com/nro337/nexus/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nro337/nexus/badge)](https://scorecard.dev/viewer/?uri=github.com/nro337/nexus)
+<a href="https://www.bestpractices.dev/projects/12917"><img src="https://www.bestpractices.dev/projects/12917/badge"></a>
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
