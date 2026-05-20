@@ -12,11 +12,12 @@ export function GraphPage() {
   const { t } = useTranslation();
   const { graphData, loading, loadGraph, selectNode, selectedNodeId } = useGraphStore();
   const { theme } = useThemeStore();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
 
-  useEffect(() => {
-    const el = containerRef.current;
+  const setContainerRef = useCallback((el: HTMLDivElement | null) => {
+    resizeObserverRef.current?.disconnect();
+    resizeObserverRef.current = null;
     if (!el) return;
 
     const updateDimensions = () => {
@@ -27,8 +28,8 @@ export function GraphPage() {
 
     const ro = new ResizeObserver(updateDimensions);
     ro.observe(el);
-    return () => ro.disconnect();
-  }, [loading, graphData.nodes.length]);
+    resizeObserverRef.current = ro;
+  }, []);
 
   useEffect(() => {
     loadGraph();
@@ -60,7 +61,7 @@ export function GraphPage() {
   }
 
   return (
-    <div ref={containerRef} className="relative w-full h-full rounded-xl overflow-hidden border"
+    <div ref={setContainerRef} className="relative w-full h-full rounded-xl overflow-hidden border"
       style={{ borderColor: "var(--color-nexus-border)", background: "var(--color-nexus-bg)" }}>
       <ForceGraph2D
         graphData={graphData as FGGraphData}

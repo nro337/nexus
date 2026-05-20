@@ -11,13 +11,14 @@ type MockGraphState = {
 };
 
 let mockGraphState: MockGraphState;
-let latestForceGraphProps: { width?: number; height?: number } = {};
+let mockForceGraphProps: { width?: number; height?: number } = {};
 let resizeCallback: (() => void) | null = null;
 let observedElement: HTMLElement | null = null;
+let disconnectCalls = 0;
 
 vi.mock("react-force-graph-2d", () => ({
   default: (props: { width?: number; height?: number }) => {
-    latestForceGraphProps = props;
+    mockForceGraphProps = props;
     return <div data-testid="force-graph" />;
   },
 }));
@@ -39,15 +40,18 @@ class ResizeObserverMock {
     observedElement = element as HTMLElement;
   }
 
-  disconnect() {}
+  disconnect() {
+    disconnectCalls += 1;
+  }
 }
 
 describe("GraphPage", () => {
   beforeEach(() => {
-    latestForceGraphProps = {};
+    mockForceGraphProps = {};
     resizeCallback = null;
     observedElement = null;
-    global.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
+    disconnectCalls = 0;
+    globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
     mockGraphState = {
       graphData: { nodes: [], links: [] },
       loading: false,
@@ -59,7 +63,7 @@ describe("GraphPage", () => {
 
   it("starts observing size when graph renders after loading", async () => {
     mockGraphState.loading = true;
-    const { rerender } = render(<GraphPage />);
+    const { rerender, unmount } = render(<GraphPage />);
 
     expect(observedElement).toBeNull();
 
@@ -73,6 +77,9 @@ describe("GraphPage", () => {
     await waitFor(() => {
       expect(observedElement).not.toBeNull();
     });
+
+    unmount();
+    expect(disconnectCalls).toBeGreaterThan(0);
   });
 
   it("updates graph width and height from container dimensions", async () => {
@@ -84,7 +91,11 @@ describe("GraphPage", () => {
       expect(resizeCallback).not.toBeNull();
     });
 
-    Object.defineProperties(observedElement!, {
+    if (!observedElement) {
+      throw new Error("Expected graph container element to be observed.");
+    }
+
+    Object.defineProperties(observedElement, {
       clientWidth: { configurable: true, value: 1234 },
       clientHeight: { configurable: true, value: 678 },
     });
@@ -94,8 +105,8 @@ describe("GraphPage", () => {
     });
 
     await waitFor(() => {
-      expect(latestForceGraphProps.width).toBe(1234);
-      expect(latestForceGraphProps.height).toBe(678);
+      expect(mockForceGraphProps.width).toBe(1234);
+      expect(mockForceGraphProps.height).toBe(678);
     });
   });
 });
