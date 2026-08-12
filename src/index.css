@@ -82,6 +82,18 @@ html.lavender {
   --color-nexus-danger: #e53e3e;
 }
 
+html.retro {
+  --color-nexus-bg: #120f2a;
+  --color-nexus-surface: #1d173f;
+  --color-nexus-surface-hover: #2a1f57;
+  --color-nexus-border: #4a357c;
+  --color-nexus-text: #f7f2ff;
+  --color-nexus-accent: #ff7bd5;
+  --color-nexus-accent-hover: #ff9de2;
+  --color-nexus-text-muted: #b89edb;
+  --color-nexus-danger: #ff6e8f;
+}
+
 @layer base {
   body {
     background-color: var(--color-nexus-bg);

@@ -10,6 +10,7 @@ describe("useThemeStore", () => {
       "ocean",
       "sunset",
       "lavender",
+      "retro",
       "custom",
     );
     vi.resetModules();
@@ -174,6 +175,6 @@ describe("useThemeStore", () => {
     expect(ids).toContain("ocean");
     expect(ids).toContain("sunset");
     expect(ids).toContain("lavender");
+    expect(ids).toContain("retro");
   });
 });
-
