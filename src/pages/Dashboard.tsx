@@ -13,6 +13,59 @@ interface DashboardProps {
   onNavigate: (page: PageId) => void;
 }
 
+interface RecentResourcesSectionProps {
+  resources: Resource[];
+  totalCount: number;
+  onNavigate: (page: PageId) => void;
+  onEdit: (resource: Resource) => void;
+}
+
+function RecentResourcesSection({ resources, totalCount, onNavigate, onEdit }: RecentResourcesSectionProps) {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold" style={{ color: "var(--color-nexus-text)" }}>
+          {t("dashboard.recentlyAdded")}
+        </h3>
+        {totalCount > 5 && (
+          <button
+            onClick={() => onNavigate("resources")}
+            className="text-xs"
+            style={{ color: "var(--color-nexus-accent)" }}
+          >
+            {t("dashboard.viewAll")}
+          </button>
+        )}
+      </div>
+
+      {resources.length === 0 ? (
+        <div
+          className="nexus-card flex flex-col items-center justify-center py-12"
+          style={{ borderStyle: "dashed" }}
+        >
+          <p className="text-sm mb-2" style={{ color: "var(--color-nexus-text-muted)" }}>
+            {t("dashboard.nothingYet")}
+          </p>
+          <button
+            onClick={() => onNavigate("capture")}
+            className="nexus-btn nexus-btn-primary text-sm"
+          >
+            {t("dashboard.captureFirst")}
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {resources.map((r) => (
+            <ResourceCard key={r.id} resource={r} onEdit={onEdit} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Dashboard({ onNavigate }: DashboardProps) {
   const { t } = useTranslation();
   const { query } = useSearchStore();
@@ -32,6 +85,13 @@ export function Dashboard({ onNavigate }: DashboardProps) {
     return <SearchResults />;
   }
 
+  const stats = [
+    { labelKey: "dashboard.stats.resources", count: resourceCount, color: "var(--color-type-link)", page: "resources" as PageId },
+    { labelKey: "dashboard.stats.tags", count: tagCount, color: "var(--color-type-snippet)", page: "resources" as PageId },
+    { labelKey: "dashboard.stats.connections", count: connectionCount, color: "var(--color-type-image)", page: "graph" as PageId },
+    { labelKey: "dashboard.stats.notes", count: noteCount, color: "var(--color-type-note)", page: "resources" as PageId },
+  ];
+
   return (
     <div className="max-w-4xl">
       {/* Welcome */}
@@ -46,12 +106,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
 
       {/* Stats grid */}
       <div className="grid grid-cols-4 gap-3 mb-8">
-        {[
-          { labelKey: "dashboard.stats.resources", count: resourceCount, color: "var(--color-type-link)", page: "resources" as PageId },
-          { labelKey: "dashboard.stats.tags", count: tagCount, color: "var(--color-type-snippet)", page: "resources" as PageId },
-          { labelKey: "dashboard.stats.connections", count: connectionCount, color: "var(--color-type-image)", page: "graph" as PageId },
-          { labelKey: "dashboard.stats.notes", count: noteCount, color: "var(--color-type-note)", page: "resources" as PageId },
-        ].map((stat) => (
+        {stats.map((stat) => (
           <button
             key={stat.labelKey}
             onClick={() => onNavigate(stat.page)}
@@ -68,45 +123,12 @@ export function Dashboard({ onNavigate }: DashboardProps) {
       </div>
 
       {/* Recent resources */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold" style={{ color: "var(--color-nexus-text)" }}>
-            {t("dashboard.recentlyAdded")}
-          </h3>
-          {resourceCount > 5 && (
-            <button
-              onClick={() => onNavigate("resources")}
-              className="text-xs"
-              style={{ color: "var(--color-nexus-accent)" }}
-            >
-              {t("dashboard.viewAll")}
-            </button>
-          )}
-        </div>
-
-        {recentResources.length === 0 ? (
-          <div
-            className="nexus-card flex flex-col items-center justify-center py-12"
-            style={{ borderStyle: "dashed" }}
-          >
-            <p className="text-sm mb-2" style={{ color: "var(--color-nexus-text-muted)" }}>
-              {t("dashboard.nothingYet")}
-            </p>
-            <button
-              onClick={() => onNavigate("capture")}
-              className="nexus-btn nexus-btn-primary text-sm"
-            >
-              {t("dashboard.captureFirst")}
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {recentResources.map((r) => (
-              <ResourceCard key={r.id} resource={r} onEdit={setEditingResource} />
-            ))}
-          </div>
-        )}
-      </div>
+      <RecentResourcesSection
+        resources={recentResources}
+        totalCount={resourceCount}
+        onNavigate={onNavigate}
+        onEdit={setEditingResource}
+      />
 
       {editingResource && (
         <EditResourceModal
