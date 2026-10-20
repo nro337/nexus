@@ -26,6 +26,21 @@ interface ResourceStore {
   clearFilters: () => Promise<void>;
 }
 
+function hasActiveFilters(filters: ResourceFilters): boolean {
+  return Boolean(
+    filters.types?.length ||
+      filters.sources?.length ||
+      filters.tagIds?.length ||
+      filters.dateFrom ||
+      filters.dateTo
+  );
+}
+
+function applyArchivedFilter(resources: Resource[], filters: ResourceFilters): Resource[] {
+  if (filters.archived === undefined) return resources;
+  return resources.filter((r) => r.archived === filters.archived);
+}
+
 export const useResourceStore = create<ResourceStore>((set, get) => ({
   resources: [],
   filters: { archived: false },
@@ -34,25 +49,13 @@ export const useResourceStore = create<ResourceStore>((set, get) => ({
   loadResources: async () => {
     set({ loading: true });
     const filters = get().filters;
-    const hasFilters =
-      filters.types?.length ||
-      filters.sources?.length ||
-      filters.tagIds?.length ||
-      filters.dateFrom ||
-      filters.dateTo;
 
-    const resources = hasFilters
+    const resources = hasActiveFilters(filters)
       ? await getFilteredResources(filters)
       : await getAllResources();
 
-    // Filter archived unless explicitly shown
-    const filtered =
-      filters.archived === undefined
-        ? resources
-        : resources.filter((r) => r.archived === filters.archived);
-
     buildSearchIndex(await getAllResources());
-    set({ resources: filtered, loading: false });
+    set({ resources: applyArchivedFilter(resources, filters), loading: false });
   },
 
   addResource: async (input, tagIds) => {

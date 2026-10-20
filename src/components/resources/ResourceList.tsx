@@ -8,9 +8,77 @@ import { EditResourceModal } from "./EditResourceModal";
 import { db } from "../../db/schema";
 import type { Resource, ResourceType, SourcePlatform } from "../../types";
 
+const RESOURCE_TYPE_VALUES: ResourceType[] = ["link", "snippet", "image", "note", "file", "paper"];
+const SOURCE_VALUES: SourcePlatform[] = ["web", "reddit", "twitter", "bluesky", "notion", "youtube", "github", "doi", "arxiv", "manual", "other"];
+
+interface ResourceListFiltersProps {
+  allTagOptions: { id: string; name: string }[];
+}
+
+function ResourceListFilters({ allTagOptions }: ResourceListFiltersProps) {
+  const { t } = useTranslation();
+  const { filters, setFilters } = useResourceStore();
+
+  return (
+    <div className="flex flex-wrap gap-2 mb-4">
+      {/* Type filter */}
+      <select
+        className="nexus-input w-auto text-xs"
+        value={filters.types?.[0] || ""}
+        onChange={(e) =>
+          setFilters({ types: e.target.value ? [e.target.value as ResourceType] : undefined })
+        }
+      >
+        <option value="">{t("resources.allTypes")}</option>
+        {RESOURCE_TYPE_VALUES.map((value) => (
+          <option key={value} value={value}>{t(`resourceTypes.${value}`)}</option>
+        ))}
+      </select>
+
+      {/* Source filter */}
+      <select
+        className="nexus-input w-auto text-xs"
+        value={filters.sources?.[0] || ""}
+        onChange={(e) =>
+          setFilters({ sources: e.target.value ? [e.target.value as SourcePlatform] : undefined })
+        }
+      >
+        <option value="">{t("resources.allSources")}</option>
+        {SOURCE_VALUES.map((value) => (
+          <option key={value} value={value}>{t(`sources.${value}`)}</option>
+        ))}
+      </select>
+
+      {/* Tag filter */}
+      <select
+        className="nexus-input w-auto text-xs"
+        value={filters.tagIds?.[0] || ""}
+        onChange={(e) =>
+          setFilters({ tagIds: e.target.value ? [e.target.value] : undefined })
+        }
+      >
+        <option value="">{t("resources.tags")}</option>
+        {allTagOptions.map((tag) => (
+          <option key={tag.id} value={tag.id}>{tag.name}</option>
+        ))}
+      </select>
+
+      {/* Archive toggle */}
+      <button
+        className="nexus-btn nexus-btn-ghost text-xs"
+        onClick={() =>
+          setFilters({ archived: filters.archived === true ? false : true })
+        }
+      >
+        {filters.archived ? t("resources.hideArchived") : t("resources.showArchived")}
+      </button>
+    </div>
+  );
+}
+
 export function ResourceList() {
   const { t } = useTranslation();
-  const { resources, filters, setFilters, loading } = useResourceStore();
+  const { resources, loading } = useResourceStore();
   const { query, results } = useSearchStore();
   const [editingResource, setEditingResource] = useState<Resource | null>(null);
 
@@ -20,85 +88,9 @@ export function ResourceList() {
     ? results.map((r) => r.resource)
     : resources;
 
-  const resourceTypeOptions: { value: ResourceType; label: string }[] = [
-    { value: "link", label: t("resourceTypes.link") },
-    { value: "snippet", label: t("resourceTypes.snippet") },
-    { value: "image", label: t("resourceTypes.image") },
-    { value: "note", label: t("resourceTypes.note") },
-    { value: "file", label: t("resourceTypes.file") },
-    { value: "paper", label: t("resourceTypes.paper") },
-  ];
-
-  const sourceOptions: { value: SourcePlatform; label: string }[] = [
-    { value: "web", label: t("sources.web") },
-    { value: "reddit", label: t("sources.reddit") },
-    { value: "twitter", label: t("sources.twitter") },
-    { value: "bluesky", label: t("sources.bluesky") },
-    { value: "notion", label: t("sources.notion") },
-    { value: "youtube", label: t("sources.youtube") },
-    { value: "github", label: t("sources.github") },
-    { value: "doi", label: t("sources.doi") },
-    { value: "arxiv", label: t("sources.arxiv") },
-    { value: "manual", label: t("sources.manual") },
-    { value: "other", label: t("sources.other") },
-  ];
-
   return (
     <div>
-      {/* Filter bar */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {/* Type filter */}
-        <select
-          className="nexus-input w-auto text-xs"
-          value={filters.types?.[0] || ""}
-          onChange={(e) =>
-            setFilters({ types: e.target.value ? [e.target.value as ResourceType] : undefined })
-          }
-        >
-          <option value="">{t("resources.allTypes")}</option>
-          {resourceTypeOptions.map(({ value, label }) => (
-            <option key={value} value={value}>{label}</option>
-          ))}
-        </select>
-
-        {/* Source filter */}
-        <select
-          className="nexus-input w-auto text-xs"
-          value={filters.sources?.[0] || ""}
-          onChange={(e) =>
-            setFilters({ sources: e.target.value ? [e.target.value as SourcePlatform] : undefined })
-          }
-        >
-          <option value="">{t("resources.allSources")}</option>
-          {sourceOptions.map(({ value, label }) => (
-            <option key={value} value={value}>{label}</option>
-          ))}
-        </select>
-
-        {/* Tag filter */}
-        <select
-          className="nexus-input w-auto text-xs"
-          value={filters.tagIds?.[0] || ""}
-          onChange={(e) =>
-            setFilters({ tagIds: e.target.value ? [e.target.value] : undefined })
-          }
-        >
-          <option value="">{t("resources.tags")}</option>
-          {allTags.map((tag) => (
-            <option key={tag.id} value={tag.id}>{tag.name}</option>
-          ))}
-        </select>
-
-        {/* Archive toggle */}
-        <button
-          className="nexus-btn nexus-btn-ghost text-xs"
-          onClick={() =>
-            setFilters({ archived: filters.archived === true ? false : true })
-          }
-        >
-          {filters.archived ? t("resources.hideArchived") : t("resources.showArchived")}
-        </button>
-      </div>
+      <ResourceListFilters allTagOptions={allTags} />
 
       {/* Results */}
       {loading ? (
