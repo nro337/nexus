@@ -1,7 +1,15 @@
 import { create } from "zustand";
 import type { CustomThemeColors } from "../lib/colorUtils";
 
-export type ThemeId = "dark" | "light" | "forest" | "ocean" | "sunset" | "lavender" | "custom";
+export type ThemeId =
+  | "dark"
+  | "light"
+  | "forest"
+  | "ocean"
+  | "sunset"
+  | "lavender"
+  | "retro"
+  | "custom";
 
 // Backward-compat alias
 export type Theme = ThemeId;
@@ -45,6 +53,11 @@ export const PREDEFINED_THEMES: PredefinedTheme[] = [
     id: "lavender",
     label: "Lavender",
     preview: { bg: "#f2f0ff", surface: "#faf9ff", accent: "#7c5cef", text: "#28204a" },
+  },
+  {
+    id: "retro",
+    label: "Retro",
+    preview: { bg: "#120f2a", surface: "#1d173f", accent: "#ff7bd5", text: "#f7f2ff" },
   },
 ];
 
