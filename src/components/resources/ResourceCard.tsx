@@ -37,12 +37,106 @@ function getYouTubeEmbedUrl(url?: string): string | undefined {
   }
 }
 
+interface ResourceMediaPreviewProps {
+  embedUrl?: string;
+  thumbnail?: string;
+  title: string;
+}
+
+function ResourceMediaPreview({ embedUrl, thumbnail, title }: ResourceMediaPreviewProps) {
+  const [showThumbnail, setShowThumbnail] = useState(true);
+
+  if (embedUrl) {
+    return (
+      <div className="mb-3 -mx-3 -mt-3 rounded-t overflow-hidden h-52.5" onClick={(e) => e.stopPropagation()}>
+        <iframe
+          src={embedUrl}
+          className="w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  if (thumbnail && showThumbnail) {
+    return (
+      <div className="mb-3 -mx-3 -mt-3 rounded-t overflow-hidden h-35">
+        <img
+          src={thumbnail}
+          alt={title}
+          className="w-full h-full object-cover"
+          onError={() => setShowThumbnail(false)}
+        />
+      </div>
+    );
+  }
+
+  return null;
+}
+
+interface ResourceCardActionsProps {
+  resource: Resource;
+  onEdit?: (resource: Resource) => void;
+}
+
+function ResourceCardActions({ resource, onEdit }: ResourceCardActionsProps) {
+  const { t } = useTranslation();
+  const { removeResource, archiveResource, unarchiveResource } = useResourceStore();
+
+  return (
+    <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 mt-1">
+      <button
+        onClick={(e) => { e.stopPropagation(); onEdit?.(resource); }}
+        className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+        style={{ color: "var(--color-nexus-text-muted)" }}
+        onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
+        onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+        title={t("resources.edit")}
+      >
+        ✎
+      </button>
+      {resource.archived ? (
+        <button
+          onClick={(e) => { e.stopPropagation(); unarchiveResource(resource.id); }}
+          className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+          style={{ color: "var(--color-nexus-text-muted)" }}
+          onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
+          onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+          title={t("resources.unarchive")}
+        >
+          ▲
+        </button>
+      ) : (
+        <button
+          onClick={(e) => { e.stopPropagation(); archiveResource(resource.id); }}
+          className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+          style={{ color: "var(--color-nexus-text-muted)" }}
+          onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
+          onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+          title={t("resources.archive")}
+        >
+          ▼
+        </button>
+      )}
+      <button
+        onClick={(e) => { e.stopPropagation(); removeResource(resource.id); }}
+        className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+        style={{ color: "var(--color-nexus-danger)" }}
+        onMouseEnter={(e) => e.currentTarget.style.background = "rgba(244,108,108,0.1)"}
+        onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+        title={t("resources.delete")}
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
+
 export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) {
   const { t } = useTranslation();
   const [tags, setTags] = useState<Tag[]>([]);
   const [expanded, setExpanded] = useState(false);
-  const [showThumbnail, setShowThumbnail] = useState(true);
-  const { removeResource, archiveResource, unarchiveResource } = useResourceStore();
 
   const embedUrl = getYouTubeEmbedUrl(resource.url);
 
@@ -54,26 +148,7 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
 
   return (
     <div className="nexus-card group" onClick={() => onSelect?.(resource)}>
-      {/* YouTube embed / thumbnail preview */}
-      {embedUrl ? (
-        <div className="mb-3 -mx-3 -mt-3 rounded-t overflow-hidden h-52.5" onClick={(e) => e.stopPropagation()}>
-          <iframe
-            src={embedUrl}
-            className="w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
-      ) : resource.thumbnail && showThumbnail ? (
-        <div className="mb-3 -mx-3 -mt-3 rounded-t overflow-hidden h-35">
-          <img
-            src={resource.thumbnail}
-            alt={resource.title}
-            className="w-full h-full object-cover"
-            onError={() => setShowThumbnail(false)}
-          />
-        </div>
-      ) : null}
+      <ResourceMediaPreview embedUrl={embedUrl} thumbnail={resource.thumbnail} title={resource.title} />
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           {/* Type + Source badge row */}
@@ -145,52 +220,7 @@ export function ResourceCard({ resource, onSelect, onEdit }: ResourceCardProps) 
           <span className="text-[10px]" style={{ color: "var(--color-nexus-text-muted)" }}>
             {formatRelativeDate(resource.createdAt)}
           </span>
-
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 mt-1">
-            <button
-              onClick={(e) => { e.stopPropagation(); onEdit?.(resource); }}
-              className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
-              style={{ color: "var(--color-nexus-text-muted)" }}
-              onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
-              onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-              title={t("resources.edit")}
-            >
-              ✎
-            </button>
-            {resource.archived ? (
-              <button
-                onClick={(e) => { e.stopPropagation(); unarchiveResource(resource.id); }}
-                className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
-                style={{ color: "var(--color-nexus-text-muted)" }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-                title={t("resources.unarchive")}
-              >
-                ▲
-              </button>
-            ) : (
-              <button
-                onClick={(e) => { e.stopPropagation(); archiveResource(resource.id); }}
-                className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
-                style={{ color: "var(--color-nexus-text-muted)" }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-nexus-surface-hover)"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-                title={t("resources.archive")}
-              >
-                ▼
-              </button>
-            )}
-            <button
-              onClick={(e) => { e.stopPropagation(); removeResource(resource.id); }}
-              className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
-              style={{ color: "var(--color-nexus-danger)" }}
-              onMouseEnter={(e) => e.currentTarget.style.background = "rgba(244,108,108,0.1)"}
-              onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-              title={t("resources.delete")}
-            >
-              ✕
-            </button>
-          </div>
+          <ResourceCardActions resource={resource} onEdit={onEdit} />
         </div>
       </div>
     </div>
